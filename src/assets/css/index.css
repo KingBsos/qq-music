@@ -1,0 +1,20 @@
+@import '../../../../css//index.css';
+@import '../icon/iconfont.css';
+:root {
+    --color-main: rgb(255, 255, 255);
+    --color-sub: rgb(228, 228, 228);
+    --color-important: rgb(0, 255, 136);
+    --color-text-main: rgb(0, 0, 0);
+    --color-text-sub: rgb(83, 83, 83);
+    --color-text-important: rgb(255, 255, 255);
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+ul, ol {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+}
