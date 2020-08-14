@@ -1,20 +1,26 @@
 @import '../../../../css//index.css';
 @import '../icon/iconfont.css';
 :root {
-    --color-main: rgb(255, 255, 255);
-    --color-sub: rgb(228, 228, 228);
-    --color-important: rgb(0, 255, 136);
-    --color-text-main: rgb(0, 0, 0);
-    --color-text-sub: rgb(83, 83, 83);
-    --color-text-important: rgb(255, 255, 255);
+    --color1: rgb(255, 255, 255);
+    --color2: rgb(0, 255, 157);
+    --color3: rgb(0, 0, 0);
+    --color4: rgb(59, 59, 59);
+    --color5: rgb(223, 223, 223);
 }
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+*:focus {
+    outline: none;
 }
 ul, ol {
     list-style: none;
 }
 a {
     text-decoration: none;
+}
+button {
+    cursor: pointer;
 }

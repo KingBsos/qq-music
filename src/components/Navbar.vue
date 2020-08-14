@@ -2,7 +2,7 @@
   <div>
     <div class="container">
       <div>
-        <img />
+        <img class="logo mY-1R" :src="pic"/>
       </div>
       <div>
         <h3 class="title">在线音乐</h3>
@@ -14,13 +14,12 @@
           </li>
           <li class="d-iB w-100 p-_25R">
             <router-link class="d-iB w-100 link" to="/video">
-              <span class="pR-_5R iconfont icon-shipin"></span>视频
+              <span class="pR-_5R iconfont icon-shipin1"></span>视频
             </router-link>
           </li>
           <li class="d-iB w-100 p-_25R">
             <router-link class="d-iB w-100 link" to="/radiostation">
-              <span class="pR-_5R iconfont icon-luyinjishouyinjidiantai
-"></span>电台
+              <span class="pR-_5R iconfont icon-diantai"></span>电台
             </router-link>
           </li>
         </ul>
@@ -28,9 +27,9 @@
       <div>
         <h3 class="title">我的音乐</h3>
         <ul>
-          <li class="d-iB w-100 p-_25R">
+          <li v-if="logged" class="d-iB w-100 p-_25R">
             <router-link class="d-iB w-100 link" to="/ilike">
-              <span class="pR-_5R iconfont icon-xihuan"></span>我喜欢
+              <span class="pR-_5R iconfont icon-xihuan1"></span>我喜欢
             </router-link>
           </li>
           <li class="d-iB w-100 p-_25R">
@@ -40,52 +39,69 @@
           </li>
           <li class="d-iB w-100 p-_25R">
             <router-link class="d-iB w-100 link" to="/playhistory">
-              <span class="pR-_5R iconfont icon-shijian1"></span>播放历史
+              <span class="pR-_5R iconfont icon-lishi1"></span>播放历史
             </router-link>
           </li>
           <li class="d-iB w-100 p-_25R">
             <router-link class="d-iB w-100 link" to="/auditionlist">
-              <span class="pR-_5R iconfont icon-liebiao"></span>试听列表
+              <span class="pR-_5R iconfont icon-yinleliebiao-"></span>试听列表
             </router-link>
           </li>
         </ul>
       </div>
-      <div>
-        <h3 class="title">创建的歌单</h3>
-      </div>
-      <div>
-        <h3 class="title">收藏的歌单</h3>
-      </div>
+      <template v-if="logged">
+        <div>
+          <h3 class="title">创建的歌单</h3>
+        </div>
+        <div>
+          <h3 class="title">收藏的歌单</h3>
+        </div>
+      </template>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import pic from '../assets/pic/qqmusic.png';
+import { mapState } from 'vuex';
+
+export default {
+  data() {
+    return {
+      pic
+    }
+  },
+  computed: {
+    ...mapState(['logged'])
+  }
+};
 </script>
 
 <style scoped>
 .container {
   padding: 10px 20px;
-  color: var(--color-main);
+  color: var(--color1);
+}
+.logo {
+  width: 100px;
 }
 .title {
   font-size: 12px;
-  color: var(--color-text-sub);
+  color: var(--color4);
   padding: 10px 5px;
-  font-weight: lighter;
+  font-weight: 300;
 }
 .link {
   padding: 5px;
-  color: var(--color-text-main);
+  color: var(--color3);
   font-size: 16px;
   border-radius: 7px;
 }
-.link:hover:not(.router-link-exact-active) {
-  background-color: var(--color-sub);
+.link:hover:not(.router-link-active) {
+  background-color: var(--color5);
 }
-.router-link-exact-active {
-  background-color: var(--color-important);
-  color: var(--color-text-important);
+.router-link-active {
+  background-color: var(--color2);
+  color: #fff;
 }
 </style>

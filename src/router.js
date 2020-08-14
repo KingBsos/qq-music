@@ -1,12 +1,15 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Index from './components/Index.vue';
+import ILike from './components/ILike.vue';
+import Song from './components/Song.vue';
 
 Vue.use(Router);
 
 const routes = [
     {
         path: '/',
+        redirect: '/ilike',
         component: Index,
         children: [
             {
@@ -19,7 +22,27 @@ const routes = [
                 path: 'radiostation'
             },
             {
-                path: 'ilike'
+                path: 'ilike',
+                redirect: 'ilike/song',
+                component: ILike,
+                children: [
+                    {
+                        path: 'song',
+                        component: Song
+                    },
+                    {
+                        path: 'songsheet'
+                    },
+                    {
+                        path: 'album'
+                    },
+                    {
+                        path: 'anchorstation'
+                    },
+                    {
+                        path: 'video'
+                    }
+                ]
             },
             {
                 path: 'localanddownload'
@@ -44,7 +67,7 @@ const router = new Router({
     mode: 'history',
     routes,
     scrollBehavior() {
-        return {x: 0, y: 0}
+        return { x: 0, y: 0 }
     }
 });
 
