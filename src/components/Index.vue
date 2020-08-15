@@ -52,7 +52,7 @@ export default {
 }
 .right {
   overflow: auto;
-  padding: 10px 20px 50px;
+  padding: 10px 20px 75px;
 }
 .footer {
   padding: 10px 0;

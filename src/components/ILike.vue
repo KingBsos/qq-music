@@ -1,27 +1,33 @@
 <template>
   <div>
     <div>
-      <h1 class="mT-1R">我喜欢</h1>
-      <ul class="mY-1R">
-        <li class="d-iB mR-1R">
-          <router-link class="link" to="/ilike/song">歌曲{{ 208 }}</router-link>
-        </li>
-        <li class="d-iB mL-1R mR-1R">
-          <router-link class="link" to="/ilike/songsheet">歌单{{ 0 }}</router-link>
-        </li>
-        <li class="d-iB mL-1R mR-1R">
-          <router-link class="link" to="/ilike/album">专辑{{ 0 }}</router-link>
-        </li>
-        <li class="d-iB mL-1R mR-1R">
-          <router-link class="link" to="/ilike/anchorstation">主播电台{{ 0 }}</router-link>
-        </li>
-        <li class="d-iB mL-1R">
-          <router-link class="link" to="/ilike/video">视频{{ 0 }}</router-link>
-        </li>
-      </ul>
-      <button class="custom-btn btn-primary mR-1R"><span class="iconfont icon-play"></span> 播放全部</button>
-      <button class="custom-btn mR-1R"><span class="iconfont icon-xiazai"></span> 下载</button>
-      <button class="custom-btn"><span class="iconfont icon-liebiao"></span> 批量操作</button>
+        <h1 class="mT-1R">我喜欢</h1>
+        <ul class="mY-1R">
+          <li class="d-iB mR-1R">
+            <router-link class="link" to="/ilike/song">歌曲{{ 208 }}</router-link>
+          </li>
+          <li class="d-iB mL-1R mR-1R">
+            <router-link class="link" to="/ilike/songsheet">歌单{{ 0 }}</router-link>
+          </li>
+          <li class="d-iB mL-1R mR-1R">
+            <router-link class="link" to="/ilike/album">专辑{{ 0 }}</router-link>
+          </li>
+          <li class="d-iB mL-1R mR-1R">
+            <router-link class="link" to="/ilike/anchorstation">主播电台{{ 0 }}</router-link>
+          </li>
+          <li class="d-iB mL-1R">
+            <router-link class="link" to="/ilike/video">视频{{ 0 }}</router-link>
+          </li>
+        </ul>
+        <button class="custom-btn btn-primary mR-1R">
+          <span class="iconfont icon-play"></span> 播放全部
+        </button>
+        <button class="custom-btn mR-1R">
+          <span class="iconfont icon-xiazai"></span> 下载
+        </button>
+        <button class="custom-btn">
+          <span class="iconfont icon-liebiao"></span> 批量操作
+        </button>
       <router-view></router-view>
     </div>
   </div>

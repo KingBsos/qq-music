@@ -19,7 +19,7 @@
         </div>
         <div class="d-iB vA-m_">
           <button class="btn custom-button">
-            <span class="iconfont icon-suiji"></span>
+            <span :class="['iconfont', playTypeClass]"></span>
           </button>
           <button class="btn custom-button">
             <span class="iconfont icon-zuobofang"></span>
@@ -56,8 +56,9 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters, mapMutations } from "vuex";
 import { realOffset } from "../utils/index.js";
+import { PLAY_TYPE } from '../constant-poll.js';
 
 let lock = false;
 
@@ -71,8 +72,14 @@ export default {
     };
   },
   computed: {
-    ...mapState(["currentSongSheet", "currentSongIndex", "playing"]),
+    ...mapState(["currentSongSheet", "currentSongIndex", "playing", 'playType', 'ended']),
     ...mapGetters(["currentSong"]),
+    playTypeClass() {
+      switch(this.playType) {
+        case PLAY_TYPE.RANDOM : return 'icon-suiji';
+        default: return '';
+      }
+    },
     percent: {
       get() {
         return (
@@ -86,6 +93,7 @@ export default {
     },
   },
   methods: {
+    ...mapMutations(['loadCurrentSongIndex']),
     playHandle() {
       if (this.playing) this.audio.pause();
       else this.audio.play();
@@ -109,7 +117,9 @@ export default {
       );
       this.percent = percent;
       document.body.addEventListener("mousemove", this.mousemoveHandle);
-      document.body.addEventListener("mouseup", this.mouseupHandle);
+      document.body.addEventListener("mouseup", this.mouseupHandle, {
+        once: true
+      });
     },
     mousemoveHandle(event) {
       let percent = this.computePercent(
@@ -131,6 +141,10 @@ export default {
       if (tx < 0) return 0;
       return tx / width;
     },
+    randomPlay() {
+      let index = Math.round(Math.random() * (this.currentSongSheet.length - 1));
+      this.loadCurrentSongIndex(index);
+    }
   },
   filters: {
     timeFormat(s) {
@@ -158,6 +172,11 @@ export default {
       this.currentTime = 0;
       this.duration = 0;
     },
+    ended(v) {
+        if(v) {
+          this.randomPlay();
+        }
+      }
   },
   mounted() {
     let progress = this.$refs.progress;

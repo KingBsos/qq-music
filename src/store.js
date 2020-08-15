@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
+import { PLAY_TYPE } from './constant-poll.js';
 
 Vue.use(Vuex);
 
@@ -8,13 +9,15 @@ const store = new Vuex.Store({
     state: {
         logged: true,
         playing: false,
+        ended: false,
+        playType: PLAY_TYPE.RANDOM,
         currentSongSheet: [],
         currentSongIndex: undefined
     },
     getters: {
         currentSong({ currentSongSheet, currentSongIndex}) {
             let result = currentSongSheet[currentSongIndex];
-            if(result) return result;
+            if(result) return {...result};
             else return {};
         }
     },
@@ -24,6 +27,12 @@ const store = new Vuex.Store({
         },
         changePlaying(state, bool) {
             state.playing = bool;
+        },
+        changeEnded(state, bool) {
+            state.ended = bool;
+        },
+        changePlayType(state, type) {
+            state.playType = type;
         },
         loadCurrentSongSheet(state, payload) {
             state.currentSongSheet = payload;

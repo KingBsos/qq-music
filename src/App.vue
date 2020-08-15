@@ -23,22 +23,29 @@ export default {
     ...mapGetters(['currentSong'])
   },
   methods: {
-    ...mapMutations(['changePlaying'])
+    ...mapMutations(['changePlaying', 'changeEnded'])
   },
   watch: {
     currentSong: {
       immediate: true,
       handler() {
         this.audio.src = this.currentSong.url;
+        this.audio.oncanplay = function() {
+          this.play();
+        }
       }
     }
   },
   created() {
     this.audio.onplay = () => {
       this.changePlaying(true);
+      this.changeEnded(false);
     };
     this.audio.onpause = () => {
       this.changePlaying(false);
+    };
+    this.audio.onended = () => {
+      this.changeEnded(true);
     };
   }
 }
