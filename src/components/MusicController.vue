@@ -21,13 +21,13 @@
           <button class="btn custom-button">
             <span :class="['iconfont', playTypeClass]"></span>
           </button>
-          <button class="btn custom-button">
+          <button class="btn custom-button" @click="songChange(-1)">
             <span class="iconfont icon-zuobofang"></span>
           </button>
           <button class="btn custom-button custom-button-play" @click="playHandle">
             <span class="iconfont" :class="playing ? 'icon-zanting' : 'icon-weibiaoti--'"></span>
           </button>
-          <button class="btn custom-button">
+          <button class="btn custom-button" @click="songChange(1)">
             <span class="iconfont icon-youbofang"></span>
           </button>
           <button class="btn custom-button">
@@ -96,7 +96,10 @@ export default {
     ...mapMutations(['loadCurrentSongIndex']),
     playHandle() {
       if (this.playing) this.audio.pause();
-      else this.audio.play();
+      else if(this.audio.readyState === 4) this.audio.play();
+      else this.audio.oncanplay = function() {
+        this.play();
+      }
     },
     playingHandle() {
       this.timer = setInterval(() => {
@@ -144,6 +147,11 @@ export default {
     randomPlay() {
       let index = Math.round(Math.random() * (this.currentSongSheet.length - 1));
       this.loadCurrentSongIndex(index);
+    },
+    songChange() {
+      switch(this.playType) {
+        case PLAY_TYPE.RANDOM : this.randomPlay(); break;
+      }
     }
   },
   filters: {
