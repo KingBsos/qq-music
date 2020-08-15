@@ -1,43 +1,55 @@
 <template>
   <div>
-    <div class="tA-c po-relative pX-1R">
-      <div v-show="currentSong.name" class="left tA-l vA-t_">
-        <img class="poster mR-_5R" :src="currentSong.poster" />
-        <div class="song-name-wrap d-iB h-100">
-          <h3
-            class="song-name mB-_5R text-overflow"
-            :title="currentSong.name + ' ー ' + currentSong.singer"
-          >
-            {{ currentSong.name }}
-            <small>{{ currentSong.singer }}</small>
-          </h3>
-          <span class="fW-9 iconfont icon-xihuan mR-1R"></span>
-          <span class="fW-9 iconfont icon-xiazai mR-1R"></span>
-          <span class="fW-9 iconfont icon-list"></span>
+    <div class="tA-c po-relative pT-1R">
+      <div class="po-relative mX-1R">
+        <div v-show="currentSong.name" class="left tA-l vA-t_ mL-1R">
+          <img class="poster mR-_5R" :src="currentSong.poster" />
+          <div class="song-name-wrap d-iB h-100">
+            <h3
+              class="song-name mB-_5R text-overflow"
+              :title="currentSong.name + ' ー ' + currentSong.singer"
+            >
+              {{ currentSong.name }}
+              <small>{{ currentSong.singer }}</small>
+            </h3>
+            <span class="fW-9 iconfont icon-xihuan mR-1R"></span>
+            <span class="fW-9 iconfont icon-xiazai mR-1R"></span>
+            <span class="fW-9 iconfont icon-list"></span>
+          </div>
+        </div>
+        <div class="d-iB vA-m_">
+          <button class="btn custom-button">
+            <span class="iconfont icon-suiji"></span>
+          </button>
+          <button class="btn custom-button">
+            <span class="iconfont icon-zuobofang"></span>
+          </button>
+          <button class="btn custom-button custom-button-play" @click="playHandle">
+            <span class="iconfont" :class="playing ? 'icon-zanting' : 'icon-weibiaoti--'"></span>
+          </button>
+          <button class="btn custom-button">
+            <span class="iconfont icon-youbofang"></span>
+          </button>
+          <button class="btn custom-button">
+            <span class="iconfont icon-shengyin"></span>
+          </button>
+        </div>
+        <div class="right mR-1R vA-m_">
+          <span>{{ currentTime | timeFormat }}</span> /
+          <span>{{ duration | timeFormat }}</span>
+          <span class="pX-_5R">词</span>
+          <button class="btn fS-1_25R">
+            <span class="iconfont icon-yinleliebiao-"></span>
+            <span>{{ currentSongSheet.length }}</span>
+          </button>
         </div>
       </div>
-      <div class="d-iB vA-m_">
-        <button class="btn custom-button">
-          <span class="iconfont icon-suiji"></span>
-        </button>
-        <button class="btn custom-button">
-          <span class="iconfont icon-zuobofang"></span>
-        </button>
-        <button class="btn custom-button custom-button-play" @click="playHandle">
-          <span class="iconfont" :class="playing ? 'icon-zanting' : 'icon-weibiaoti--'"></span>
-        </button>
-        <button class="btn custom-button">
-          <span class="iconfont icon-youbofang"></span>
-        </button>
-        <button class="btn custom-button">
-          <span class="iconfont icon-shengyin"></span>
-        </button>
-      </div>
-      <div class="right vA-m_">
-        <span>{{ currentTime | timeFormat }}</span> /
-        <span>{{ duration | timeFormat }}</span>
-        <span>词</span>
-        <span>{{ currentSongSheet.length }}</span>
+      <div class="progress-wrap" @mousedown="mousedownHandle">
+        <div class="music-progress" ref="progress">
+          <div class="progress-bar po-relative" :style="{width: percent}">
+            <div class="progress-bar-head"></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -45,19 +57,33 @@
 
 <script>
 import { mapState, mapGetters } from "vuex";
+import { realOffset } from "../utils/index.js";
+
+let lock = false;
 
 export default {
   inject: ["audio"],
   data() {
     return {
-        timer: null,
-        currentTime: 0,
-        duration: 0
+      timer: null,
+      currentTime: 0,
+      duration: 0,
     };
   },
   computed: {
     ...mapState(["currentSongSheet", "currentSongIndex", "playing"]),
     ...mapGetters(["currentSong"]),
+    percent: {
+      get() {
+        return (
+          (this.currentTime / (this.duration == 0 ? 1 : this.duration)) * 100 +
+          "%"
+        );
+      },
+      set(v) {
+        this.currentTime = this.duration * v;
+      },
+    },
   },
   methods: {
     playHandle() {
@@ -65,39 +91,78 @@ export default {
       else this.audio.play();
     },
     playingHandle() {
-        this.timer = setInterval(() => {
-            this.currentTime = this.audio.currentTime;
-            this.duration = this.audio.duration;
-        }, 1000);
-    }
+      this.timer = setInterval(() => {
+        if (!lock) {
+          this.currentTime = this.audio.currentTime;
+          this.duration = this.audio.duration;
+        }
+      }, 1000);
+    },
+    mousedownHandle(event) {
+      lock = true;
+      clearInterval(this.timer);
+      this.timer = null;
+      let percent = this.computePercent(
+        event.pageX,
+        this.progressOffset.x,
+        this.$refs.progress.offsetWidth
+      );
+      this.percent = percent;
+      document.body.addEventListener("mousemove", this.mousemoveHandle);
+      document.body.addEventListener("mouseup", this.mouseupHandle);
+    },
+    mousemoveHandle(event) {
+      let percent = this.computePercent(
+        event.pageX,
+        this.progressOffset.x,
+        this.$refs.progress.offsetWidth
+      );
+      this.percent = percent;
+    },
+    mouseupHandle() {
+      lock = false;
+      document.body.removeEventListener("mousemove", this.mousemoveHandle);
+      this.audio.currentTime = this.currentTime;
+      this.playingHandle();
+      this.audio.play();
+    },
+    computePercent(x, ox, width) {
+      let tx = x - ox;
+      if (tx < 0) return 0;
+      return tx / width;
+    },
   },
   filters: {
-      timeFormat(s) {
-          if(isNaN(s)) s = 0;
-          let min = Math.round(s / 60);
-          let sec = Math.round(s % 60);
-          min = min < 10 ? '0'+min : min;
-          sec = sec < 10 ? '0'+sec : sec;
-          return `${min}:${sec}`;
-      }
+    timeFormat(s) {
+      if (isNaN(s)) s = 0;
+      let min = Math.round(s / 60);
+      let sec = Math.round(s % 60);
+      min = min < 10 ? "0" + min : min;
+      sec = sec < 10 ? "0" + sec : sec;
+      return `${min}:${sec}`;
+    },
   },
   watch: {
-      playing: {
-          immediate: true,
-          handler(v) {
-              if(v) {
-                  this.playingHandle();
-              } else {
-                  clearInterval(this.timer);
-                  this.timer = null;
-              }
-          }
+    playing: {
+      immediate: true,
+      handler(v) {
+        if (v) {
+          this.playingHandle();
+        } else {
+          clearInterval(this.timer);
+          this.timer = null;
+        }
       },
-      currentSong() {
-        this.currentTime = 0;
-        this.duration = 0;
-      }
-  }
+    },
+    currentSong() {
+      this.currentTime = 0;
+      this.duration = 0;
+    },
+  },
+  mounted() {
+    let progress = this.$refs.progress;
+    this.progressOffset = realOffset(progress);
+  },
 };
 </script>
 
@@ -140,5 +205,36 @@ export default {
   background-color: var(--color2);
   color: #fff;
   font-size: 25px;
+}
+.progress-wrap {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  padding: 10px 0 5px;
+  transform: translateY(-50%);
+  &:hover {
+    .progress-bar-head {
+      display: inline-block;
+    }
+  }
+}
+.music-progress {
+  height: 3px;
+  background-color: #bebebe;
+  .progress-bar {
+    height: 100%;
+    background-color: var(--color2);
+  }
+}
+.progress-bar-head {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--color2);
+  transform: translate(50%, -50%);
 }
 </style>

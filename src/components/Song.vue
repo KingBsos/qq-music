@@ -10,11 +10,22 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(item, index) in likeSongSheet" :key="index">
-                <td>
-                  <div class="song-name">{{ item.name }}</div>
+              <tr :class="[item === currentSong ? 'active-song' : '']" v-for="(item, index) in likeSongSheet" :key="index">
+                <td class="vA-m_">
+                  <div class="song-name p-_25R">{{ item.name }}</div>
                   <div class="option-panel">
-                    <button @click="songSheetPlay(likeSongSheet, index)">播放</button>
+                    <button class="fS-1_25R btn" @click="songSheetPlay(likeSongSheet, index)">
+                      <span class="iconfont icon-weibiaoti--"></span>
+                    </button>
+                    <button class="fS-1_25R btn mX-_25R">
+                      <span class="iconfont icon-tianjia"></span>
+                    </button>
+                    <button class="fS-1_25R btn mR-_25R">
+                      <span class="iconfont icon-xiazai"></span>
+                    </button>
+                    <button class="fS-1_25R btn">
+                      <span class="iconfont icon-caidan"></span>
+                    </button>
                   </div>
                 </td>
                 <td>
@@ -31,12 +42,13 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations } from 'vuex';
+import { mapState, mapGetters, mapActions, mapMutations } from 'vuex';
 
 export default {
   inject: ['audio'],
   computed: {
-    ...mapState('user', ['likeSongSheet'])
+    ...mapState('user', ['likeSongSheet']),
+    ...mapGetters(['currentSong'])
   },
   methods: {
     ...mapActions('user', ['getLikeSong']),
@@ -90,6 +102,9 @@ export default {
       display: inline-block;
     }
   } 
+  .active-song {
+    color: var(--color2);
+  }
 }
 .song-name {
   display: inline-block;
@@ -100,6 +115,6 @@ export default {
 .option-panel {
   display: none;
   float: right;
-  width: 30%;
+  text-align: right;
 }
 </style>

@@ -55,7 +55,6 @@ export default {
   padding: 10px 20px 50px;
 }
 .footer {
-  border-top: 1px solid #ddd;
   padding: 10px 0;
   margin-left: 200px;
   position: fixed;
