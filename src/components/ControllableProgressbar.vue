@@ -13,7 +13,6 @@ import { realOffset } from "../utils/index.js";
 
 export default {
   data() {
-    console.log(this)
     return {
       self: false,
       custom_widthPercent: this.widthPercent,

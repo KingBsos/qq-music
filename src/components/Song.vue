@@ -46,7 +46,7 @@
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 
 export default {
-  inject: ["audio"],
+  inject: ["audio", 'safePlay'],
   computed: {
     ...mapState("user", ["likeSongSheet"]),
     ...mapGetters(["currentSong"]),
@@ -57,9 +57,7 @@ export default {
     songSheetPlay(sheet, index) {
       this.loadCurrentSongSheet(sheet);
       this.loadCurrentSongIndex(index);
-      this.$nextTick(() => {
-        this.audio.play();
-      });
+      this.safePlay();
     },
   },
   created() {

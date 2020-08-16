@@ -70,7 +70,7 @@ import ControllableProgressbar from "./ControllableProgressbar.vue";
 let lock = false;
 
 export default {
-  inject: ["audio"],
+  inject: ["audio", 'safePlay'],
   data() {
     return {
       timer: null,
@@ -104,11 +104,7 @@ export default {
     ...mapMutations(["loadCurrentSongIndex"]),
     playHandle() {
       if (this.playing) this.audio.pause();
-      else if (this.audio.readyState === 4) this.audio.play();
-      else
-        this.audio.oncanplay = function () {
-          this.play();
-        };
+      else this.safePlay();
     },
     playingHandle() {
       this.timer = setInterval(() => {
@@ -128,7 +124,7 @@ export default {
       this.audio.currentTime = this.duration * widthPercent;
       this.currentTime = this.duration * widthPercent;
       this.playingHandle();
-      this.audio.play();
+      this.safePlay();
     },
     randomPlay() {
       let index = Math.round(
@@ -189,6 +185,7 @@ export default {
     top: 0;
     width: 100%;
     padding: 10px 0 5px;
+    transform: translateY(-50%);
     &:hover {
       .music-progress-bar-head {
         display: inline-block;

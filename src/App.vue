@@ -16,7 +16,13 @@ export default {
   },
   provide() {
     return {
-      audio: this.audio
+      audio: this.audio,
+      safePlay() {
+        if(this.audio.readyState === 4) this.audio.play();
+        else this.audio.oncanplay = function() {
+          this.play();
+        }
+      }
     }
   },
   computed: {
