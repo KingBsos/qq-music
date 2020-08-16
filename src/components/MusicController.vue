@@ -12,7 +12,10 @@
               {{ currentSong.name }}
               <small>{{ currentSong.singer }}</small>
             </h3>
-            <span class="fW-9 iconfont mR-1R" :class="[currentSong.like ? 'icon-xihuan1 color-red' : 'icon-xihuan']"></span>
+            <span
+              class="fW-9 iconfont mR-1R"
+              :class="[currentSong.like ? 'icon-xihuan1 color-red' : 'icon-xihuan']"
+            ></span>
             <span class="fW-9 iconfont icon-xiazai mR-1R"></span>
             <span class="fW-9 iconfont icon-list"></span>
           </div>
@@ -44,21 +47,25 @@
           </button>
         </div>
       </div>
-      <div class="progress-wrap" @mousedown="mousedownHandle">
-        <div class="music-progress" ref="progress">
-          <div class="progress-bar po-relative" :style="{width: percent}">
-            <div class="progress-bar-head"></div>
-          </div>
-        </div>
-      </div>
+      <ControllableProgressbar
+        class="progress-wrap"
+        progressbarClass="music-progress-bar"
+        progressClass="music-progress"
+        progressHeadClass="music-progress-bar-head"
+        :x="true"
+        @start="start"
+        @finish="finish"
+        :widthPercent="percent"
+        :heightPercent="1"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapGetters, mapMutations } from "vuex";
-import { realOffset } from "../utils/index.js";
-import { PLAY_TYPE } from '../constant-poll.js';
+import { PLAY_TYPE } from "../constant-poll.js";
+import ControllableProgressbar from "./ControllableProgressbar.vue";
 
 let lock = false;
 
@@ -72,34 +79,36 @@ export default {
     };
   },
   computed: {
-    ...mapState(["currentSongSheet", "currentSongIndex", "playing", 'playType', 'ended']),
+    ...mapState([
+      "currentSongSheet",
+      "currentSongIndex",
+      "playing",
+      "playType",
+      "ended",
+    ]),
     ...mapGetters(["currentSong"]),
     playTypeClass() {
-      switch(this.playType) {
-        case PLAY_TYPE.RANDOM : return 'icon-suiji';
-        default: return '';
+      switch (this.playType) {
+        case PLAY_TYPE.RANDOM:
+          return "icon-suiji";
+        default:
+          return "";
       }
     },
-    percent: {
-      get() {
-        return (
-          (this.currentTime / (this.duration == 0 ? 1 : this.duration)) * 100 +
-          "%"
-        );
-      },
-      set(v) {
-        this.currentTime = this.duration * v;
-      },
-    },
+    percent() {
+      if(this.duration === 0) return 0;
+      else return this.currentTime / this.duration;
+    }
   },
   methods: {
-    ...mapMutations(['loadCurrentSongIndex']),
+    ...mapMutations(["loadCurrentSongIndex"]),
     playHandle() {
       if (this.playing) this.audio.pause();
-      else if(this.audio.readyState === 4) this.audio.play();
-      else this.audio.oncanplay = function() {
-        this.play();
-      }
+      else if (this.audio.readyState === 4) this.audio.play();
+      else
+        this.audio.oncanplay = function () {
+          this.play();
+        };
     },
     playingHandle() {
       this.timer = setInterval(() => {
@@ -109,50 +118,31 @@ export default {
         }
       }, 1000);
     },
-    mousedownHandle(event) {
+    start() {
       lock = true;
       clearInterval(this.timer);
       this.timer = null;
-      let percent = this.computePercent(
-        event.pageX,
-        this.progressOffset.x,
-        this.$refs.progress.offsetWidth
-      );
-      this.percent = percent;
-      document.body.addEventListener("mousemove", this.mousemoveHandle);
-      document.body.addEventListener("mouseup", this.mouseupHandle, {
-        once: true
-      });
     },
-    mousemoveHandle(event) {
-      let percent = this.computePercent(
-        event.pageX,
-        this.progressOffset.x,
-        this.$refs.progress.offsetWidth
-      );
-      this.percent = percent;
-    },
-    mouseupHandle() {
+    finish({ widthPercent }) {
       lock = false;
-      document.body.removeEventListener("mousemove", this.mousemoveHandle);
-      this.audio.currentTime = this.currentTime;
+      this.audio.currentTime = this.duration * widthPercent;
+      this.currentTime = this.duration * widthPercent;
       this.playingHandle();
       this.audio.play();
     },
-    computePercent(x, ox, width) {
-      let tx = x - ox;
-      if (tx < 0) return 0;
-      return tx / width;
-    },
     randomPlay() {
-      let index = Math.round(Math.random() * (this.currentSongSheet.length - 1));
+      let index = Math.round(
+        Math.random() * (this.currentSongSheet.length - 1)
+      );
       this.loadCurrentSongIndex(index);
     },
     songChange() {
-      switch(this.playType) {
-        case PLAY_TYPE.RANDOM : this.randomPlay(); break;
+      switch (this.playType) {
+        case PLAY_TYPE.RANDOM:
+          this.randomPlay();
+          break;
       }
-    }
+    },
   },
   filters: {
     timeFormat(s) {
@@ -181,19 +171,49 @@ export default {
       this.duration = 0;
     },
     ended(v) {
-        if(v) {
-          this.randomPlay();
-        }
+      if (v) {
+        this.randomPlay();
       }
+    },
   },
-  mounted() {
-    let progress = this.$refs.progress;
-    this.progressOffset = realOffset(progress);
+  components: {
+    ControllableProgressbar,
   },
 };
 </script>
 
 <style lang="scss" scoped>
+::v-deep {
+  .progress-wrap {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: 10px 0 5px;
+    &:hover {
+      .music-progress-bar-head {
+        display: inline-block;
+      }
+    }
+  }
+  .music-progress-bar {
+    height: 3px;
+    background-color: #bebebe;
+  }
+  .music-progress {
+    background-color: var(--color2);
+  }
+  .music-progress-bar-head {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--color2);
+    transform: translate(50%, -50%);
+  }
+}
 .left,
 .right {
   position: absolute;
@@ -233,36 +253,5 @@ export default {
   background-color: var(--color2);
   color: #fff;
   font-size: 25px;
-}
-.progress-wrap {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  padding: 10px 0 5px;
-  transform: translateY(-50%);
-  &:hover {
-    .progress-bar-head {
-      display: inline-block;
-    }
-  }
-}
-.music-progress {
-  height: 3px;
-  background-color: #bebebe;
-  .progress-bar {
-    height: 100%;
-    background-color: var(--color2);
-  }
-}
-.progress-bar-head {
-  display: none;
-  position: absolute;
-  right: 0;
-  top: 50%;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: var(--color2);
-  transform: translate(50%, -50%);
 }
 </style>
