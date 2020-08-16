@@ -1,20 +1,20 @@
 <template>
   <div @onmousedown="mousedownHandle">
-    <div class="progress-bar">
+    <div ref="progress" class="progress-bar">
       <div class="progress" :style="percent"></div>
     </div>
   </div>
 </template>
 
 <script>
-let lock = false;
+import { realOffset } from "../utils/index.js";
 
 export default {
   data() {
     return {
-      timer: null,
-      currentTime: 0,
-      duration: 0,
+      self: false,
+      _widthPercent: 0,
+      _heightPercent: 0,
     };
   },
   props: {
@@ -26,11 +26,17 @@ export default {
     },
   },
   computed: {
-    percent() {
-      return {
-        width: this.convert(this.widthPercent),
-        height: this.comvert(this.heightPercent),
-      };
+    percentStyle() {
+      if (this.self)
+        return {
+          width: this.convert(this._widthPercent),
+          height: this.convert(this._heightPercent),
+        };
+      else
+        return {
+          width: this.convert(this.widthPercent),
+          height: this.convert(this.heightPercent),
+        };
     },
   },
   methods: {
@@ -38,20 +44,56 @@ export default {
       return percent * 100 + "%";
     },
     mousedownHandle(event) {
-      lock = true;
-      clearInterval(this.timer);
-      this.timer = null;
-      let percent = this.computePercent(
+      this.self = true;
+      this.$emit("start");
+      let Xpercent = this.computePercent(
         event.pageX,
         this.progressOffset.x,
         this.$refs.progress.offsetWidth
       );
-      this.percent = percent;
+      let Ypercent = this.computePercent(
+        event.pageY,
+        this.progressOffset.y,
+        this.$refs.progress.offsetWidth
+      );
+      this._widthPercent = Xpercent;
+      this._heightPercent = Ypercent;
       document.body.addEventListener("mousemove", this.mousemoveHandle);
       document.body.addEventListener("mouseup", this.mouseupHandle, {
         once: true,
       });
     },
+    mousemoveHandle(event) {
+      let Xpercent = this.computePercent(
+        event.pageX,
+        this.progressOffset.x,
+        this.$refs.progress.offsetWidth
+      );
+      let Ypercent = this.computePercent(
+        event.pageY,
+        this.progressOffset.y,
+        this.$refs.progress.offsetHeight
+      );
+      this._widthPercent = Xpercent;
+      this._heightPercent = Ypercent;
+    },
+    mouseupHandle() {
+      this.self = false;
+      document.body.removeEventListener("mousemove", this.mousemoveHandle);
+      this.$emit("finish", {
+        width: this._widthPercent,
+        height: this._heightPercent,
+      });
+    },
+    computePercent(x, ox, width) {
+      let tx = x - ox;
+      if (tx < 0) return 0;
+      return tx / width;
+    },
+  },
+  mounted() {
+    let progress = this.$refs.progress;
+    this.progressOffset = realOffset(progress);
   },
 };
 </script>
