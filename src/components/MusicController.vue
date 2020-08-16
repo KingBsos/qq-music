@@ -49,6 +49,7 @@
       </div>
       <ControllableProgressbar
         class="progress-wrap"
+        :class="playing ? '' : 'paused'"
         progressbarClass="music-progress-bar"
         progressClass="music-progress"
         progressHeadClass="music-progress-bar-head"
@@ -181,6 +182,7 @@ export default {
 <style lang="scss" scoped>
 ::v-deep {
   .progress-wrap {
+    overflow: hidden;
     position: absolute;
     top: 0;
     width: 100%;
@@ -198,6 +200,9 @@ export default {
   }
   .music-progress {
     background-color: var(--color2);
+  }
+  .paused {
+    pointer-events: none;
   }
   .music-progress-bar-head {
     display: none;
