@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
 import { PLAY_TYPE } from './constant-poll.js';
+import pic from './assets/pic/0a8b265911c1171246ee645fae735f7d.png';
 
 Vue.use(Vuex);
 
@@ -18,7 +19,10 @@ const store = new Vuex.Store({
         currentSong({ currentSongSheet, currentSongIndex}) {
             let result = currentSongSheet[currentSongIndex];
             if(result) return {...result};
-            else return {};
+            else return {
+                name: 'QQ音乐',
+                poster: pic
+            };
         }
     },
     mutations: {

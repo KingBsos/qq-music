@@ -12,7 +12,7 @@
               {{ currentSong.name }}
               <small>{{ currentSong.singer }}</small>
             </h3>
-            <span class="fW-9 iconfont icon-xihuan mR-1R"></span>
+            <span class="fW-9 iconfont mR-1R" :class="[currentSong.like ? 'icon-xihuan1 color-red' : 'icon-xihuan']"></span>
             <span class="fW-9 iconfont icon-xiazai mR-1R"></span>
             <span class="fW-9 iconfont icon-list"></span>
           </div>
@@ -209,6 +209,7 @@ export default {
 }
 .song-name {
   font-size: 14px;
+  line-height: 1.3;
   small {
     color: #666;
   }
