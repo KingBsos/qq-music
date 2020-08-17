@@ -33,8 +33,24 @@
           <button class="btn custom-button" @click="songChange(1)">
             <span class="iconfont icon-youbofang"></span>
           </button>
-          <button class="btn custom-button">
+          <button class="btn custom-button volume-button">
             <span class="iconfont icon-shengyin"></span>
+            <div class="volume-panel">
+              <ControllableProgressbar
+                class="volume-progress-wrap"
+                progressbarClass="volume-progressbar"
+                progressClass="volume-progress"
+                progressHeadClass="volume-progress-head"
+                :y="true"
+                :yReverse="true"
+                :widthPercent="1"
+                :heightPercent="volume"
+                @move="volumeMove"
+                @finish="volumeMove"
+              />
+              <span class="d-iB w-100 mT-1R">{{ Math.round(volume * 100) }}%</span>
+              <span class="d-iB w-100 iconfont icon-shengyin"></span>
+            </div>
           </button>
         </div>
         <div class="right mR-1R vA-m_">
@@ -71,12 +87,14 @@ import ControllableProgressbar from "./ControllableProgressbar.vue";
 let lock = false;
 
 export default {
-  inject: ["audio", 'safePlay'],
+  inject: ["audio", "safePlay"],
   data() {
+    console.log(this.audio.volume);
     return {
       timer: null,
       currentTime: 0,
       duration: 0,
+      volume: this.audio.volume,
     };
   },
   computed: {
@@ -97,9 +115,9 @@ export default {
       }
     },
     percent() {
-      if(this.duration === 0) return 0;
+      if (this.duration === 0) return 0;
       else return this.currentTime / this.duration;
-    }
+    },
   },
   methods: {
     ...mapMutations(["loadCurrentSongIndex"]),
@@ -127,10 +145,14 @@ export default {
       this.playingHandle();
       this.safePlay();
     },
+    volumeMove({ heightPercent }) {
+      this.volume = heightPercent;
+    },
     randomPlay() {
-      let index = Math.round(
-        Math.random() * (this.currentSongSheet.length - 1)
-      );
+      let index;
+      do {
+        index = Math.round(Math.random() * (this.currentSongSheet.length - 1));
+      } while (index === this.currentSongIndex);
       this.loadCurrentSongIndex(index);
     },
     songChange() {
@@ -172,6 +194,9 @@ export default {
         this.randomPlay();
       }
     },
+    volume(v) {
+      this.audio.volume = v;
+    },
   },
   components: {
     ControllableProgressbar,
@@ -196,9 +221,10 @@ export default {
   }
   .music-progress-bar {
     height: 3px;
-    background-color: #bebebe;
+    background-color: #dadada;
   }
-  .music-progress {
+  .music-progress,
+  .volume-progress {
     background-color: var(--color2);
   }
   .paused {
@@ -215,6 +241,24 @@ export default {
     background-color: var(--color2);
     transform: translate(50%, -50%);
   }
+  .volume-progress-wrap {
+    padding: 0px 5px;
+  }
+  .volume-progressbar {
+    width: 3px;
+    height: 150px;
+    margin: auto;
+  }
+  .volume-progress-head {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: var(--color2);
+    border-radius: 50%;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 .left,
 .right {
@@ -228,6 +272,7 @@ export default {
 }
 .poster {
   height: 100%;
+  border-radius: 7px;
 }
 .song-name {
   font-size: 14px;
@@ -250,10 +295,59 @@ export default {
   border-radius: 50%;
   font-size: 16px;
   line-height: 45px;
+  position: relative;
+}
+.custom-button:not(.custom-button-play):hover > span {
+  color: var(--color2);
 }
 .custom-button-play {
   background-color: var(--color2);
   color: #fff;
   font-size: 25px;
+}
+.volume-button:focus {
+  .volume-panel {
+    opacity: 1;
+    pointer-events: auto;
+    width: 80px;
+    padding: 20px 15px 15px;
+  }
+}
+.volume-panel {
+  pointer-events: none;
+  opacity: 0;
+  width: 0px;
+  text-align: center;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 1px solid #d3d3d3;
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  z-index: 1;
+  margin-bottom: 10px;
+  transition: all 0.2s;
+}
+.volume-panel:after {
+  content: '';
+  position: absolute;
+  border: 15px solid transparent;
+  border-top-color: rgb(173, 173, 173);
+  border-bottom: 0;
+  top: calc(100% + 1px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+.volume-panel:before {
+  content: '';
+  position: absolute;
+  border: 15px solid transparent;
+  border-top-color: rgb(255, 255, 255);
+  border-bottom: 0;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
 }
 </style>

@@ -17,6 +17,7 @@ const store = new Vuex.Store({
     },
     getters: {
         currentSong({ currentSongSheet, currentSongIndex}) {
+            console.log('update')
             let result = currentSongSheet[currentSongIndex];
             if(result) return {...result};
             else return {

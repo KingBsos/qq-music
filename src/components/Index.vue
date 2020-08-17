@@ -4,8 +4,8 @@
           <div class="left">
             <Navbar />
           </div>
-          <div class="po-r h-100 right">
-            <div>
+          <div class="po-relative h-100 right">
+            <div class="top-control">
               <GlobalControl />
             </div>
             <div>
@@ -51,8 +51,14 @@ export default {
   background-color: #fafafa;
 }
 .right {
-  overflow: auto;
-  padding: 10px 20px 75px;
+  padding: 30px 20px 75px;
+}
+.top-control {
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 .footer {
   padding: 10px 0;

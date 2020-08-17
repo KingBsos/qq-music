@@ -1,8 +1,8 @@
 <template>
   <div @mousedown="mousedownHandle">
-    <div ref="progress" class="progress-bar" :class="progressbarClass">
-      <div class="progress" :class="progressClass" :style="percentStyle">
-        <div :class="progressHeadClass"></div>
+    <div ref="progress" :class="['progressbar', progressbarClass, yReverse ? 'reverse' : '']">
+      <div :class="['progress', progressClass]" :style="percentStyle">
+        <div :class="[progressHeadClass]"></div>
       </div>
     </div>
   </div>
@@ -28,13 +28,17 @@ export default {
       type: Boolean,
       default: false,
     },
+    yReverse: {
+      type: Boolean,
+      default: false,
+    },
     widthPercent: {
       type: Number,
-      default: 0
+      default: 0,
     },
     heightPercent: {
       type: Number,
-      default: 0
+      default: 0,
     },
     progressbarClass: [String, Array],
     progressClass: [String, Array],
@@ -68,7 +72,9 @@ export default {
       });
     },
     mousemoveHandle(event) {
-      this.computeAllPercent(event.pageX, event.pageY);
+      this.computeAllPercent(event.pageX, event.pageY, (data) =>
+        this.$emit("move", data)
+      );
     },
     mouseupHandle() {
       this.self = false;
@@ -78,45 +84,68 @@ export default {
         heightPercent: this.custom_heightPercent,
       });
     },
-    computeAllPercent(pageX, pageY) {
+    computeAllPercent(pageX, pageY, callback) {
+      let Xpercent, Ypercent;
+      let {x, y} = realOffset(this.$refs.progress);
       if (this.x) {
-        let Xpercent = this.computePercent(
+        Xpercent = this.computePercent(
           pageX,
-          this.progressOffset.x,
+          x,
           this.$refs.progress.offsetWidth
         );
         this.custom_widthPercent = Xpercent;
       }
       if (this.y) {
-        let Ypercent = this.computePercent(
-          pageY,
-          this.progressOffset.y,
-          this.$refs.progress.offsetHeight
-        );
+        if (this.yReverse) {
+          let height = this.$refs.progress.offsetHeight;
+          Ypercent = this.computePercent(
+            pageY,
+            y + height,
+            height,
+            true
+          );
+        } else {
+          Ypercent = this.computePercent(
+            pageY,
+            y,
+            this.$refs.progress.offsetHeight
+          );
+        }
         this.custom_heightPercent = Ypercent;
       }
+      if (callback)
+        callback({
+          widthPercent: Xpercent,
+          heightPercent: Ypercent,
+        });
     },
-    computePercent(x, ox, width) {
-      let tx = x - ox;
-      if (tx < 0) return 0;
-      return tx / width;
+    computePercent(x, ox, width, bool) {
+      if (bool) {
+        let tx = ox - x;
+        if (tx < 0) return 0;
+        if (tx > width) return 1;
+        return tx / width;
+      } else {
+        let tx = x - ox;
+        if (tx < 0) return 0;
+        if (tx > width) return 1;
+        return tx / width;
+      }
     },
-  },
-  mounted() {
-    let progress = this.$refs.progress;
-    this.progressOffset = realOffset(progress);
-  },
+  }
 };
 </script>
 
 <style scoped>
-.progress-bar {
-  background-color: #f0f0f0;
+.progressbar {
+  background-color: #bebebe;
   height: 100%;
   width: 100%;
 }
 .progress {
   position: relative;
-  background-color: rgb(60, 255, 0);
+}
+.reverse {
+  transform: rotate(180deg);
 }
 </style>
