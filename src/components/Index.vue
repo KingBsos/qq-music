@@ -8,7 +8,7 @@
             <div class="top-control">
               <GlobalControl />
             </div>
-            <div>
+            <div class="h-100 o-auto">
               <transition>
                 <router-view></router-view>
               </transition>
@@ -51,10 +51,10 @@ export default {
   background-color: #fafafa;
 }
 .right {
-  padding: 30px 20px 75px;
+  padding: 55px 20px 75px;
 }
 .top-control {
-  padding: 10px;
+  padding: 10px 10px 10px 220px;
   position: fixed;
   top: 0;
   left: 0;

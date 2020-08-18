@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div>
+    <div class="container">
+      <div class="wrap pB-1R">
         <h1 class="mT-1R">我喜欢</h1>
         <ul class="mY-1R">
           <li class="d-iB mR-1R">
@@ -28,6 +29,7 @@
         <button class="custom-btn">
           <span class="iconfont icon-liebiao"></span> 批量操作
         </button>
+        </div>
       <router-view></router-view>
     </div>
   </div>
@@ -38,6 +40,15 @@ export default {};
 </script>
 
 <style scoped>
+.container {
+  height: 100%;
+}
+.wrap {
+  position: sticky;
+  top: -50px;
+  background-color: #fff;
+  z-index: 1;
+}
 .custom-btn {
   padding: 7px 30px;
   border: 0px;
