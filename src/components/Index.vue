@@ -14,7 +14,7 @@
               </transition>
             </div>
             <div class="footer">
-              <MusicController />
+              <MusicController class="h-100 p-1R" />
             </div>
           </div>
       </div>
@@ -51,7 +51,7 @@ export default {
   background-color: #fafafa;
 }
 .right {
-  padding: 55px 20px 75px;
+  padding: 55px 20px 80px;
 }
 .top-control {
   padding: 10px 10px 10px 220px;
@@ -61,13 +61,14 @@ export default {
   right: 0;
 }
 .footer {
-  padding: 10px 0;
   margin-left: 200px;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
+  height: 80px;
   background-color: var(--color1);
+  z-index: 1;
 }
 .v-enter, .v-leave-to {
   transform: translate(20px);

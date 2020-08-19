@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import FullScreenPlayPanel from './components/FullScreenPlayPanel.vue';
 import Index from './components/Index.vue';
 import ILike from './components/ILike.vue';
 import Song from './components/Song.vue';
@@ -9,7 +10,10 @@ Vue.use(Router);
 const routes = [
     {
         path: '/',
-        redirect: '/ilike',
+        redirect: '/index/ilike',
+    },
+    {
+        path: '/index',
         component: Index,
         children: [
             {
@@ -28,7 +32,7 @@ const routes = [
                 children: [
                     {
                         path: 'song',
-                        component: Song
+                        component: Song,
                     },
                     {
                         path: 'songsheet'
@@ -60,7 +64,12 @@ const routes = [
                 path: 'songlistcollection'
             }
         ]
+    },
+    {
+        path: '/fullscreenplaypanel',
+        component: FullScreenPlayPanel
     }
+
 ];
 
 const router = new Router({

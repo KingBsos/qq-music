@@ -10,16 +10,14 @@ const store = new Vuex.Store({
     state: {
         logged: true,
         playing: false,
-        ended: false,
         playType: PLAY_TYPE.RANDOM,
         currentSongSheet: [],
         currentSongIndex: undefined
     },
     getters: {
-        currentSong({ currentSongSheet, currentSongIndex}) {
-            console.log('update')
+        currentSong({ currentSongSheet, currentSongIndex }) {
             let result = currentSongSheet[currentSongIndex];
-            if(result) return {...result};
+            if (result) return { ...result };
             else return {
                 name: 'QQ音乐',
                 poster: pic
@@ -33,9 +31,6 @@ const store = new Vuex.Store({
         changePlaying(state, bool) {
             state.playing = bool;
         },
-        changeEnded(state, bool) {
-            state.ended = bool;
-        },
         changePlayType(state, type) {
             state.playType = type;
         },
@@ -43,6 +38,13 @@ const store = new Vuex.Store({
             state.currentSongSheet = payload;
         },
         loadCurrentSongIndex(state, index) {
+            state.currentSongIndex = index;
+        },
+        randomPlay(state) {
+            let index;
+            do {
+                index = Math.round(Math.random() * (state.currentSongSheet.length - 1));
+            } while (index === state.currentSongIndex);
             state.currentSongIndex = index;
         }
     },
@@ -65,8 +67,8 @@ const store = new Vuex.Store({
             },
             actions: {
                 login({ commit }, url) {
-                    axios.get(url).then(({data}) => {
-                        commit('changeLogged', true, {root: true});
+                    axios.get(url).then(({ data }) => {
+                        commit('changeLogged', true, { root: true });
                         commit('loadBasicData', data);
                     });
                 },

@@ -5,7 +5,9 @@ import music2 from './assets/music/花澤香菜 - 心生七面 善恶难辨.mp3'
 import music3 from './assets/music/花たん - 心做し.mp3';
 import music4 from './assets/music/a_hisa - Town of Windmill.mp3';
 import music5 from './assets/music/DAOKO,米津玄師 - 打上花火.mp3';
+import pic5 from './assets/pic/QQ截图20200818193559.png';
 import music6 from './assets/music/EpicMusicVn - Last Reunion.mp3';
+import pic6 from './assets/pic/QQ截图20200818190146.png';
 import music7 from './assets/music/Jack Stauber - buttercup.mp3';
 import music8 from './assets/music/Kayaz - Sansa Lala.mp3';
 import music9 from './assets/music/milet - Drown.mp3';
@@ -48,7 +50,7 @@ Mock.mock(/music/, [
     {
         name: 'DAOKO,米津玄師 - 打上花火',
         url: music5,
-        poster: '@dataImage(50x50)',
+        poster: pic5,
         singer: Mock.mock('@name'),
         album: '@string(5, 20)',
         like: true
@@ -56,7 +58,7 @@ Mock.mock(/music/, [
     {
         name: 'EpicMusicVn - Last Reunion',
         url: music6,
-        poster: '@dataImage(50x50)',
+        poster: pic6,
         singer: Mock.mock('@name'),
         album: '@string(5, 20)',
         like: true

@@ -5,31 +5,34 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { PLAY_TYPE } from "./constant-poll.js";
+import { mapState, mapGetters, mapMutations } from "vuex";
 
 export default {
-  name: 'App',
+  name: "App",
   data() {
     return {
-      audio: document.createElement('audio')
-    }
+      audio: document.createElement("audio")
+    };
   },
   provide() {
     return {
       audio: this.audio,
       safePlay() {
-        if(this.audio.readyState === 4) this.audio.play();
-        else this.audio.oncanplay = function() {
-          this.play();
-        }
+        if (this.audio.readyState === 4) this.audio.play();
+        else
+          this.audio.oncanplay = function() {
+            this.play();
+          };
       }
-    }
+    };
   },
   computed: {
-    ...mapGetters(['currentSong'])
+    ...mapState(['playType']),
+    ...mapGetters(["currentSong"])
   },
   methods: {
-    ...mapMutations(['changePlaying', 'changeEnded'])
+    ...mapMutations(["changePlaying", "changeEnded", "randomPlay"])
   },
   watch: {
     currentSong: {
@@ -38,7 +41,7 @@ export default {
         this.audio.src = this.currentSong.url;
         this.audio.oncanplay = function() {
           this.play();
-        }
+        };
       }
     }
   },
@@ -51,14 +54,20 @@ export default {
       this.changePlaying(false);
     };
     this.audio.onended = () => {
-      this.changeEnded(true);
+      switch (this.playType) {
+        case PLAY_TYPE.RANDOM:
+          this.randomPlay();
+          break;
+        default:
+          return "";
+      }
     };
   }
-}
+};
 </script>
 
 <style>
-@import './assets/css/index.css';
+@import "./assets/css/index.css";
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
 }
