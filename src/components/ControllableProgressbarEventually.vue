@@ -1,28 +1,34 @@
 <template>
   <div>
-    <ControllableProgressbar
-      class="progress-wrap"
-      :class="playing ? '' : 'paused'"
-      progressbarClass="music-progress-bar"
-      progressClass="music-progress"
-      progressHeadClass="music-progress-bar-head"
-      :x="true"
-      @start="start"
-      @finish="finish"
-      :widthPercent="percent"
-      :heightPercent="1"
-    />
+    <div class="container">
+      <ControllableProgressbar
+        class="progress-wrap"
+        :class="currentSong.id === 0 ? 'paused' : ''"
+        :progressbarClass="['music-progress-bar'].concat(progressbarClass)"
+        progressClass="music-progress"
+        progressHeadClass="music-progress-bar-head"
+        :x="true"
+        @start="start"
+        @finish="finish"
+        :widthPercent="percent"
+        :heightPercent="1"
+      />
+    </div>
+    <slot :currentTime="currentTime" :duration="duration"></slot>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import ControllableProgressbar from "./ControllableProgressbar.vue";
 
 let lock = false;
 
 export default {
   inject: ["audio", "safePlay"],
+  props: {
+    progressbarClass: [String, Array]
+  },
   data() {
     return {
       timer: null,
@@ -31,7 +37,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["playing"]),
+    ...mapState(["playing"]),...mapGetters(['currentSong']),
     percent() {
       if (this.duration === 0) return 0;
       else return this.currentTime / this.duration;
@@ -83,6 +89,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.container {
+  position: relative;
+}
 ::v-deep {
   .progress-wrap {
     cursor: pointer;

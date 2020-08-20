@@ -32,7 +32,7 @@ export default {
     ...mapGetters(["currentSong"])
   },
   methods: {
-    ...mapMutations(["changePlaying", "changeEnded", "randomPlay"])
+    ...mapMutations(["changePlaying", "randomPlay"])
   },
   watch: {
     currentSong: {
@@ -48,7 +48,6 @@ export default {
   created() {
     this.audio.onplay = () => {
       this.changePlaying(true);
-      this.changeEnded(false);
     };
     this.audio.onpause = () => {
       this.changePlaying(false);

@@ -19,6 +19,7 @@ const store = new Vuex.Store({
             let result = currentSongSheet[currentSongIndex];
             if (result) return { ...result };
             else return {
+                id: 0,
                 name: 'QQ音乐',
                 poster: pic
             };

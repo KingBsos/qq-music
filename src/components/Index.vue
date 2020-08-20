@@ -14,7 +14,7 @@
               </transition>
             </div>
             <div class="footer">
-              <MusicController class="h-100 p-1R" />
+              <MusicController class="h-100 pT-1R pX-1R" />
             </div>
           </div>
       </div>

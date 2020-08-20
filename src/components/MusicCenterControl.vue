@@ -1,19 +1,19 @@
 <template>
   <div>
     <div class="tA-c vA-m_">
-      <button class="btn custom-button">
+      <button class="btn custom-button" :class="buttonClass">
         <span :class="['iconfont', playTypeClass]"></span>
       </button>
-      <button class="btn custom-button" @click="songChange(-1)">
+      <button class="btn custom-button" :class="buttonClass" @click="songChange(-1)">
         <span class="iconfont icon-zuobofang"></span>
       </button>
-      <button class="btn custom-button custom-button-play" @click="playHandle">
+      <button class="btn custom-button custom-button-play" :class="buttonClass" @click="playHandle">
         <span class="iconfont" :class="playing ? 'icon-zanting' : 'icon-weibiaoti--'"></span>
       </button>
-      <button class="btn custom-button" @click="songChange(1)">
+      <button class="btn custom-button" :class="buttonClass" @click="songChange(1)">
         <span class="iconfont icon-youbofang"></span>
       </button>
-      <button class="btn custom-button volume-button">
+      <button class="btn custom-button volume-button" :class="buttonClass">
         <span class="iconfont icon-shengyin"></span>
         <div class="volume-panel">
           <ControllableProgressbar
@@ -28,8 +28,8 @@
             @move="volumeMove"
             @finish="volumeMove"
           />
-          <span class="d-iB w-100 mT-1R">{{ Math.round(volume * 100) }}%</span>
-          <span class="d-iB w-100 iconfont icon-shengyin"></span>
+          <span class="d-iB w-100 mT-1R custom-span">{{ Math.round(volume * 100) }}%</span>
+          <span class="d-iB w-100 iconfont icon-shengyin custom-span"></span>
         </div>
       </button>
     </div>
@@ -45,6 +45,9 @@ export default {
   inject: ["audio", "safePlay"],
   components: {
       ControllableProgressbar
+  },
+  props: {
+    buttonClass: [String, Array]
   },
   data() {
     return {
@@ -106,6 +109,9 @@ export default {
     width: 3px;
     height: 150px;
     margin: auto;
+  }
+  .custom-span {
+    color: #000;
   }
   .volume-progress-head {
     position: absolute;

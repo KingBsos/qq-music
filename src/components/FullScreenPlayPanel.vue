@@ -13,16 +13,15 @@
         </div>
       </div>
       <div class="footer-wrap">
-        <div class="po-relative">
-          <ControllableProgressbarEventually />
-        </div>
-        <div class="footer">
-          <div></div>
-          <div>
-            <MusicCenterControl />
+        <ControllableProgressbarEventually progressbarClass="full-progressbar" #default="{currentTime, duration}">
+          <div class="footer">
+            <CurrentTimePanel class="fS-_75R" :currentTime="currentTime" :duration="duration" />
+            <div>
+              <MusicCenterControl buttonClass="button-style"/>
+            </div>
+            <div>jjj</div>
           </div>
-          <div></div>
-        </div>
+        </ControllableProgressbarEventually>
       </div>
     </div>
   </div>
@@ -32,6 +31,7 @@
 import { mapGetters, mapMutations } from "vuex";
 import ControllableProgressbarEventually from "./ControllableProgressbarEventually.vue";
 import MusicCenterControl from "./MusicCenterControl.vue";
+import CurrentTimePanel from "./CurrentTimePanel.vue";
 import { gussian } from "../utils/index.js";
 
 export default {
@@ -41,10 +41,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["currentSong"]),
+    ...mapGetters(["currentSong"])
   },
   methods: {
-    ...mapMutations(["randomPlay"]),
+    ...mapMutations(["randomPlay"])
   },
   watch: {
     currentSong() {
@@ -55,6 +55,7 @@ export default {
   },
   components: {
     MusicCenterControl,
+    CurrentTimePanel,
     ControllableProgressbarEventually
   },
   mounted() {
@@ -77,7 +78,7 @@ export default {
   z-index: 0;
 }
 .container:after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   bottom: 0;
@@ -106,5 +107,13 @@ export default {
 .footer {
   display: flex;
   justify-content: space-between;
+}
+::v-deep {
+  .button-style {
+    color: #fff;
+  }
+  .full-progressbar {
+    background-color: rgba(131, 131, 131, 0.192);
+  }
 }
 </style>
