@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div class="tA-c vA-m_">
+    <div class="tA-c">
       <button class="btn custom-button" :class="buttonClass">
         <span :class="['iconfont', playTypeClass]"></span>
       </button>
       <button class="btn custom-button" :class="buttonClass" @click="songChange(-1)">
         <span class="iconfont icon-zuobofang"></span>
       </button>
-      <button class="btn custom-button custom-button-play" :class="buttonClass" @click="playHandle">
+      <button class="btn custom-button custom-button-play vA-t" :class="buttonClass" @click="playHandle">
         <span class="iconfont" :class="playing ? 'icon-zanting' : 'icon-weibiaoti--'"></span>
       </button>
       <button class="btn custom-button" :class="buttonClass" @click="songChange(1)">
@@ -29,7 +29,7 @@
             @finish="volumeMove"
           />
           <span class="d-iB w-100 mT-1R custom-span">{{ Math.round(volume * 100) }}%</span>
-          <span class="d-iB w-100 iconfont icon-shengyin custom-span"></span>
+          <span class="d-iB w-100 iconfont icon-shengyin custom-span mT_5rem"></span>
         </div>
       </button>
     </div>
@@ -129,7 +129,6 @@ export default {
   height: 45px;
   border-radius: 50%;
   font-size: 16px;
-  line-height: 45px;
   position: relative;
 }
 .custom-button:not(.custom-button-play):hover > span {

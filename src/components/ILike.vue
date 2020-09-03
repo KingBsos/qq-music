@@ -5,19 +5,19 @@
         <h1 class="mT-1R">我喜欢</h1>
         <ul class="mY-1R">
           <li class="d-iB mR-1R">
-            <router-link class="link" to="/ilike/song">歌曲{{ 208 }}</router-link>
+            <router-link class="link" to="/index/ilike/song">歌曲{{ 208 }}</router-link>
           </li>
           <li class="d-iB mL-1R mR-1R">
-            <router-link class="link" to="/ilike/songsheet">歌单{{ 0 }}</router-link>
+            <router-link class="link" to="/index/ilike/songsheet">歌单{{ 0 }}</router-link>
           </li>
           <li class="d-iB mL-1R mR-1R">
-            <router-link class="link" to="/ilike/album">专辑{{ 0 }}</router-link>
+            <router-link class="link" to="/index/ilike/album">专辑{{ 0 }}</router-link>
           </li>
           <li class="d-iB mL-1R mR-1R">
-            <router-link class="link" to="/ilike/anchorstation">主播电台{{ 0 }}</router-link>
+            <router-link class="link" to="/index/ilike/anchorstation">主播电台{{ 0 }}</router-link>
           </li>
           <li class="d-iB mL-1R">
-            <router-link class="link" to="/ilike/video">视频{{ 0 }}</router-link>
+            <router-link class="link" to="/index/ilike/video">视频{{ 0 }}</router-link>
           </li>
         </ul>
         <button class="custom-btn btn-primary mR-1R">

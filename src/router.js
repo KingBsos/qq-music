@@ -15,6 +15,10 @@ const routes = [
     {
         path: '/index',
         component: Index,
+        beforeEnter(to, from, next) {
+            //console.log('beforeEnter')
+            next();
+        },
         children: [
             {
                 path: 'musichall'
@@ -78,6 +82,18 @@ const router = new Router({
     scrollBehavior() {
         return { x: 0, y: 0 }
     }
+});
+
+router.beforeEach(function(to, from, next) {
+    //console.log('beforeEach');
+    next();
+});
+router.beforeResolve(function(to, from, next) {
+    //console.log('beforeResolve');
+    next();
+});
+router.afterEach(function() {
+    //console.log('afterEach');
 });
 
 export default router;

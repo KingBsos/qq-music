@@ -8,17 +8,17 @@
         <h3 class="title">在线音乐</h3>
         <ul>
           <li class="d-iB w-100 p-_25R">
-            <router-link class="d-iB w-100 link" to="/musichall">
+            <router-link class="d-iB w-100 link" to="/index/musichall">
               <span class="pR-_5R iconfont icon-yinyue"></span>音乐馆
             </router-link>
           </li>
           <li class="d-iB w-100 p-_25R">
-            <router-link class="d-iB w-100 link" to="/video">
+            <router-link class="d-iB w-100 link" to="/index/video">
               <span class="pR-_5R iconfont icon-shipin1"></span>视频
             </router-link>
           </li>
           <li class="d-iB w-100 p-_25R">
-            <router-link class="d-iB w-100 link" to="/radiostation">
+            <router-link class="d-iB w-100 link" to="/index/radiostation">
               <span class="pR-_5R iconfont icon-diantai"></span>电台
             </router-link>
           </li>
@@ -28,22 +28,22 @@
         <h3 class="title">我的音乐</h3>
         <ul>
           <li v-if="logged" class="d-iB w-100 p-_25R">
-            <router-link class="d-iB w-100 link" to="/ilike">
+            <router-link class="d-iB w-100 link" to="/index/ilike">
               <span class="pR-_5R iconfont icon-xihuan1"></span>我喜欢
             </router-link>
           </li>
           <li class="d-iB w-100 p-_25R">
-            <router-link class="d-iB w-100 link" to="/localanddownload">
+            <router-link class="d-iB w-100 link" to="/index/localanddownload">
               <span class="pR-_5R iconfont icon-icon-test"></span>本地和下载
             </router-link>
           </li>
           <li class="d-iB w-100 p-_25R">
-            <router-link class="d-iB w-100 link" to="/playhistory">
+            <router-link class="d-iB w-100 link" to="/index/playhistory">
               <span class="pR-_5R iconfont icon-lishi1"></span>播放历史
             </router-link>
           </li>
           <li class="d-iB w-100 p-_25R">
-            <router-link class="d-iB w-100 link" to="/auditionlist">
+            <router-link class="d-iB w-100 link" to="/index/auditionlist">
               <span class="pR-_5R iconfont icon-yinleliebiao-"></span>试听列表
             </router-link>
           </li>

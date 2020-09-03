@@ -16,7 +16,9 @@
             :key="index"
           >
             <td class="vA-m_">
-              <span :class="['iconfont', 'pX-_5R', item.like ? 'color-red icon-xihuan1' : 'icon-xihuan']"></span>
+              <span
+                :class="['iconfont', 'pX-_5R', item.like ? 'color-red icon-xihuan1' : 'icon-xihuan']"
+              ></span>
               <div class="song-name p-_25R">{{ item.name }}</div>
               <div class="option-panel">
                 <button class="fS-1_25R btn" @click="songSheetPlay(likeSongSheet, index)">
@@ -46,10 +48,10 @@
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 
 export default {
-  inject: ["audio", 'safePlay'],
+  inject: ["audio", "safePlay"],
   computed: {
     ...mapState("user", ["likeSongSheet"]),
-    ...mapGetters(["currentSong"]),
+    ...mapGetters(["currentSong"])
   },
   methods: {
     ...mapActions("user", ["getLikeSong"]),
@@ -58,11 +60,11 @@ export default {
       this.loadCurrentSongSheet(sheet);
       this.loadCurrentSongIndex(index);
       this.safePlay();
-    },
+    }
   },
   created() {
     this.getLikeSong("music");
-  },
+  }
 };
 </script>
 

@@ -14,8 +14,8 @@ function gussian(imgUrl, x1=0, x2 = 1, y1 = x1, y2 = x2) {
     let image = new Image();
     let imageData = null;
     let newImageData = null;
-    let sigma = 100;
-    let radius = 20;
+    let sigma = 20;
+    let radius = 5;
     let gussianArray = GussianArray(sigma, radius);
     let width = 0;
     let height = 0;
