@@ -1,5 +1,9 @@
 # vue-qqmusic
 
+```
+git clone git@github.com:kingbsos/qq-music --recursive
+```
+
 ## Project setup
 ```
 npm install
