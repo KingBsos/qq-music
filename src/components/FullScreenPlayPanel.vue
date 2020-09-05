@@ -1,7 +1,12 @@
 <template>
   <div>
     <div class="container" :style="{backgroundImage: `url(${dataUrl})`}">
-      <div class="top"></div>
+      <div class="top">
+        <div>
+          <button @click="$router.back()">X</button>
+        </div>
+        <div></div>
+      </div>
       <div class="flex-1 vA-t_">
         <div class="left">
           <img class="poster" :src="currentSong.poster" />
@@ -13,11 +18,14 @@
         </div>
       </div>
       <div class="footer-wrap">
-        <ControllableProgressbarEventually progressbarClass="full-progressbar" #default="{currentTime, duration}">
+        <ControllableProgressbarEventually
+          progressbarClass="full-progressbar"
+          #default="{currentTime, duration}"
+        >
           <div class="footer">
             <CurrentTimePanel class="fS-_75R" :currentTime="currentTime" :duration="duration" />
             <div>
-              <MusicCenterControl buttonClass="button-style"/>
+              <MusicCenterControl buttonClass="button-style" />
             </div>
             <div>jjj</div>
           </div>
@@ -76,6 +84,10 @@ export default {
   color: #fff;
   position: relative;
   z-index: 0;
+}
+.top {
+  display: flex;
+  justify-content: space-between;
 }
 .container:after {
   content: "";

@@ -17,6 +17,7 @@ import music11 from './assets/music/さユり - ミカヅキ -street弾き語り
 Mock.mock(/music/, [
     {
         name: '花澤香菜 - 恋爱サーキュレーション -Instrumental-',
+        id: '@GUID',
         url: music1,
         poster: '@dataImage(50x50)',
         singer: Mock.mock('@name'),
@@ -25,6 +26,7 @@ Mock.mock(/music/, [
     },
     {
         name: '花澤香菜 - 心生七面 善恶难辨',
+        id: '@GUID',
         url: music2,
         poster: '@dataImage(50x50)',
         singer: Mock.mock('@name'),
@@ -33,6 +35,7 @@ Mock.mock(/music/, [
     },
     {
         name: '花たん - 心做し',
+        id: '@GUID',
         url: music3,
         poster: '@dataImage(50x50)',
         singer: Mock.mock('@name'),
@@ -41,6 +44,7 @@ Mock.mock(/music/, [
     },
     {
         name: 'a_hisa - Town of Windmill',
+        id: '@GUID',
         url: music4,
         poster: '@dataImage(50x50)',
         singer: Mock.mock('@name'),
@@ -49,6 +53,7 @@ Mock.mock(/music/, [
     },
     {
         name: 'DAOKO,米津玄師 - 打上花火',
+        id: '@GUID',
         url: music5,
         poster: pic5,
         singer: Mock.mock('@name'),
@@ -57,6 +62,7 @@ Mock.mock(/music/, [
     },
     {
         name: 'EpicMusicVn - Last Reunion',
+        id: '@GUID',
         url: music6,
         poster: pic6,
         singer: Mock.mock('@name'),
@@ -65,6 +71,7 @@ Mock.mock(/music/, [
     },
     {
         name: 'Jack Stauber - buttercup',
+        id: '@GUID',
         url: music7,
         poster: '@dataImage(50x50)',
         singer: Mock.mock('@name'),
@@ -73,6 +80,7 @@ Mock.mock(/music/, [
     },
     {
         name: 'Kayaz - Sansa Lala',
+        id: '@GUID',
         url: music8,
         poster: '@dataImage(50x50)',
         singer: Mock.mock('@name'),
@@ -81,6 +89,7 @@ Mock.mock(/music/, [
     },
     {
         name: 'milet - Drown',
+        id: '@GUID',
         url: music9,
         poster: '@dataImage(50x50)',
         singer: Mock.mock('@name'),
@@ -89,6 +98,7 @@ Mock.mock(/music/, [
     },
     {
         name: 'supercell - 君の知らない物語',
+        id: '@GUID',
         url: music10,
         poster: '@dataImage(50x50)',
         singer: Mock.mock('@name'),
@@ -97,6 +107,7 @@ Mock.mock(/music/, [
     },
     {
         name: 'さユり - ミカヅキ -street弾き語りver',
+        id: '@GUID',
         url: music11,
         poster: '@dataImage(50x50)',
         singer: Mock.mock('@name'),

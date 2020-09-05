@@ -1,6 +1,19 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <div id="eventWrapper" class="w-100 h-100">
+      <transition
+        name="fullpage"
+        mode="out-in"
+        appear
+        appear-class="fullpage-enter"
+        appear-active-class="fullpage-enter-active"
+      >
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
+      </transition>
+      <PortalTarget name="MusicListSidebar" />
+    </div>
   </div>
 </template>
 
@@ -28,7 +41,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['playType']),
+    ...mapState(["playType"]),
     ...mapGetters(["currentSong"])
   },
   methods: {
@@ -68,6 +81,21 @@ export default {
 <style>
 @import "./assets/css/index.css";
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  z-index: 0;
+}
+#eventWrapper {
+  overflow: hidden;
+}
+.fullpage-enter,
+.fullpage-leave-to {
+  transform: translateY(100%);
+}
+.fullpage-enter-active,
+.fullpage-leave-active {
+  transition: all 0.5s;
 }
 </style>

@@ -15,24 +15,28 @@
             v-for="(item, index) in likeSongSheet"
             :key="index"
           >
-            <td class="vA-m_">
-              <span
-                :class="['iconfont', 'pX-_5R', item.like ? 'color-red icon-xihuan1' : 'icon-xihuan']"
-              ></span>
-              <div class="song-name p-_25R">{{ item.name }}</div>
-              <div class="option-panel">
-                <button class="fS-1_25R btn" @click="songSheetPlay(likeSongSheet, index)">
-                  <span class="iconfont icon-weibiaoti--"></span>
-                </button>
-                <button class="fS-1_25R btn mX-_25R">
-                  <span class="iconfont icon-tianjia"></span>
-                </button>
-                <button class="fS-1_25R btn mR-_25R">
-                  <span class="iconfont icon-xiazai"></span>
-                </button>
-                <button class="fS-1_25R btn">
-                  <span class="iconfont icon-caidan"></span>
-                </button>
+            <td>
+              <div class="d-f">
+                <span
+                  :class="['iconfont', 'like-button vA-m_', 'pX-_5R', item.like ? 'color-red icon-xihuan1' : 'icon-xihuan']"
+                ></span>
+                <div class="left-panel">
+                  <div class="song-name vA-m_">{{ item.name }}</div>
+                </div>
+                <div class="option-panel vA-m_">
+                  <button class="btn" @click="songSheetPlay(likeSongSheet, index)">
+                    <span class="iconfont icon-weibiaoti--"></span>
+                  </button>
+                  <button class="btn mX-_25R">
+                    <span class="iconfont icon-tianjia"></span>
+                  </button>
+                  <button class="btn mR-_25R">
+                    <span class="iconfont icon-xiazai"></span>
+                  </button>
+                  <button class="btn">
+                    <span class="iconfont icon-caidan"></span>
+                  </button>
+                </div>
               </div>
             </td>
             <td>{{ item.singer }}</td>
@@ -70,6 +74,12 @@ export default {
 
 <style lang="scss" scoped>
 .table {
+  .iconfont {
+    font-size: 20px;
+  }
+  .like-button {
+    font-size: 14px;
+  }
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
@@ -97,9 +107,6 @@ export default {
     }
   }
   td:first-child:hover {
-    .song-name {
-      width: 70%;
-    }
     .option-panel {
       display: inline-block;
     }
@@ -109,10 +116,19 @@ export default {
   }
 }
 .song-name {
-  display: inline-block;
-  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-right: 5px;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.left-panel {
+  flex: 1;
+  padding: 12px 0;
+  position: relative;
 }
 .option-panel {
   display: none;

@@ -137,7 +137,9 @@ export default {
 .custom-button-play {
   background-color: var(--color2);
   color: #fff;
-  font-size: 25px;
+  .iconfont {
+    font-size: 25px;
+  }
 }
 .volume-button:focus {
   .volume-panel {

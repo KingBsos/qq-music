@@ -4,7 +4,7 @@
       <div class="d-f jC-sB aI-c h-100 po-relative">
         <div class="w-33 h-100 left-wrap d-f aI-c">
           <router-link class="poster" to="/fullscreenplaypanel">
-            <img class="h-100 p-_5R" :src="currentSong.poster" />
+            <img class="h-100 p-_5R bR15" :src="currentSong.poster" />
           </router-link>
           <div class="w-100">
             <h3
@@ -26,10 +26,7 @@
         <div class="w-33 tA-r">
           <CurrentTimePanel class="d-iB" :currentTime="currentTime" :duration="duration"/>
           <span class="pX-_5R">词</span>
-          <button class="btn fS-1_25R">
-            <span class="iconfont icon-yinleliebiao-"></span>
-            <span>{{ currentSongSheet.length }}</span>
-          </button>
+          <MusicListControl :number="currentSongSheet.length"/>
         </div>
       </div>
     </ControllableProgressbarEventually>
@@ -41,6 +38,7 @@ import { mapState, mapGetters, mapMutations } from "vuex";
 import ControllableProgressbarEventually from "./ControllableProgressbarEventually.vue";
 import MusicCenterControl from "./MusicCenterControl.vue";
 import CurrentTimePanel from './CurrentTimePanel.vue';
+import MusicListControl from './MusicListControl.vue';
 
 export default {
   inject: ["audio", "safePlay"],
@@ -54,7 +52,8 @@ export default {
   components: {
     ControllableProgressbarEventually,
     MusicCenterControl,
-    CurrentTimePanel
+    CurrentTimePanel,
+    MusicListControl
   }
 };
 </script>
