@@ -125,8 +125,8 @@ export default {
   }
 }
 .custom-button {
-  width: 45px;
-  height: 45px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   font-size: 16px;
   position: relative;

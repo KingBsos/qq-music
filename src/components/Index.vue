@@ -1,46 +1,49 @@
 <template>
   <div>
-      <div class="container">
-          <div class="left">
-            <Navbar />
-          </div>
-          <div class="po-relative h-100 right">
-            <div class="top-control">
-              <GlobalControl />
-            </div>
-            <div class="h-100 o-auto">
-              <transition>
-                <router-view></router-view>
-              </transition>
-            </div>
-            <div class="footer">
-              <MusicController class="h-100 pT-1R pX-1R" />
-            </div>
-          </div>
+    <div class="container">
+      <div class="left">
+        <Navbar />
       </div>
+      <div class="po-relative h-100 right">
+        <div class="top-control">
+          <GlobalControl />
+        </div>
+        <div class="h-100 o-auto">
+          <transition>
+            <router-view></router-view>
+          </transition>
+        </div>
+        <div class="footer">
+          <MusicController class="h-100 pT-1R pX-1R" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import Navbar from './Navbar.vue';
-import GlobalControl from './GlobalControl.vue';
-import MusicController from './MusicController.vue';
+import Navbar from "./Navbar.vue";
+import GlobalControl from "./GlobalControl.vue";
+import MusicController from "./MusicController.vue";
 
 export default {
   components: {
-    Navbar, GlobalControl, MusicController
+    Navbar,
+    GlobalControl,
+    MusicController
   }
-}
+};
 </script>
 
 <style scoped>
 .container {
   position: relative;
-    padding: 0px 0px 0px 200px;
-    overflow: hidden;
-    width: 100vw;
-    height: 100vh;
-    background-color: var(--global-theme-color);
+  padding: 0px 0px 0px 200px;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--global-theme-color);
+  z-index: 0;
 }
 .left {
   position: absolute;
@@ -70,10 +73,12 @@ export default {
   background-color: var(--color1);
   z-index: 1;
 }
-.v-enter, .v-leave-to {
+.v-enter,
+.v-leave-to {
   transform: translate(20px);
 }
-.v-enter-active, v-leave-active {
+.v-enter-active,
+v-leave-active {
   transition: all 0.2s;
 }
 </style>

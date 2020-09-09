@@ -74,6 +74,7 @@ export default {
 
 <style lang="scss" scoped>
 .container {
+  position: relative;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
@@ -82,8 +83,7 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
   color: #fff;
-  position: relative;
-  z-index: 0;
+  z-index: 1;
 }
 .top {
   display: flex;
