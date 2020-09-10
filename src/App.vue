@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { PLAY_TYPE } from "./constant-poll.js";
+import { PLAY_TYPE } from "./constants";
 import { mapState, mapGetters, mapMutations } from "vuex";
 
 export default {
