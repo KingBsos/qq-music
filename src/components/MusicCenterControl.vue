@@ -7,14 +7,23 @@
       <button class="btn custom-button" :class="buttonClass" @click="songChange(-1)">
         <span class="iconfont icon-zuobofang"></span>
       </button>
-      <button class="btn custom-button custom-button-play vA-t" :class="buttonClass" @click="playHandle">
+      <button
+        class="btn custom-button custom-button-play vA-t"
+        :class="buttonClass"
+        @click="playHandle"
+      >
         <span class="iconfont" :class="playing ? 'icon-zanting' : 'icon-weibiaoti--'"></span>
       </button>
       <button class="btn custom-button" :class="buttonClass" @click="songChange(1)">
         <span class="iconfont icon-youbofang"></span>
       </button>
-      <button class="btn custom-button volume-button" :class="buttonClass">
-        <span class="iconfont icon-shengyin"></span>
+      <button
+        class="btn custom-button volume-button"
+        @click.self="volumePanelOpen = !volumePanelOpen"
+        :class="[buttonClass, (volumePanelOpen ? 'open' : '')]"
+        @blur="volumePanelOpen = false"
+      >
+        <span class="pe-n iconfont icon-shengyin"></span>
         <div class="volume-panel">
           <ControllableProgressbar
             class="volume-progress-wrap"
@@ -44,14 +53,15 @@ import ControllableProgressbar from "./ControllableProgressbar.vue";
 export default {
   inject: ["audio", "safePlay"],
   components: {
-      ControllableProgressbar
+    ControllableProgressbar
   },
   props: {
     buttonClass: [String, Array]
   },
   data() {
     return {
-      volume: this.audio.volume
+      volume: this.audio.volume,
+      volumePanelOpen: false
     };
   },
   computed: {
@@ -73,7 +83,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(["loadCurrentSongIndex", 'randomPlay']),
+    ...mapMutations(["loadCurrentSongIndex", "randomPlay"]),
     songChange() {
       switch (this.playType) {
         case PLAY_TYPE.RANDOM:
@@ -90,7 +100,7 @@ export default {
     }
   },
   watch: {
-      volume(v) {
+    volume(v) {
       this.audio.volume = v;
     }
   }
@@ -141,7 +151,7 @@ export default {
     font-size: 25px;
   }
 }
-.volume-button:focus {
+.volume-button:focus.open {
   .volume-panel {
     opacity: 1;
     pointer-events: auto;
@@ -185,5 +195,16 @@ export default {
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
+}
+@media screen and (max-width: 450px) {
+  .custom-button {
+    width: 35px;
+    height: 35px;
+  }
+  .custom-button-play {
+    .iconfont {
+      font-size: 20px;
+    }
+  }
 }
 </style>

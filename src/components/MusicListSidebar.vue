@@ -76,11 +76,14 @@ export default {
   top: 0;
   bottom: 0;
   width: 300px;
-  background-color: #fff;
+  background-color: rgb(255, 255, 255);
   z-index: 1000;
   padding: 15px;
   display: flex;
   flex-direction: column;
+  box-shadow: 60px 0px 100px 0px var(--color2), 60px 0px 100px 0px var(--color2),
+    60px 0px 100px 0px var(--color2), 60px 0px 100px 0px rgb(0, 0, 0),
+    60px 0px 100px 0px rgb(51, 255, 0);
 }
 .music-list-item {
   display: flex;

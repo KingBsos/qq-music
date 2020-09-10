@@ -3,7 +3,7 @@
     <div class="container" :style="{backgroundImage: `url(${dataUrl})`}">
       <div class="top">
         <div>
-          <button @click="$router.back()">X</button>
+          <button class="BTN close-button" @click="$router.back()">X</button>
         </div>
         <div></div>
       </div>
@@ -23,11 +23,11 @@
           #default="{currentTime, duration}"
         >
           <div class="footer">
-            <CurrentTimePanel class="fS-_75R" :currentTime="currentTime" :duration="duration" />
-            <div>
+            <CurrentTimePanel class="fS-_75R hidden1" :currentTime="currentTime" :duration="duration" />
+            <div class="f1">
               <MusicCenterControl buttonClass="button-style" />
             </div>
-            <div>jjj</div>
+            <div class="hidden1">jjj</div>
           </div>
         </ControllableProgressbarEventually>
       </div>
@@ -75,8 +75,8 @@ export default {
 <style lang="scss" scoped>
 .container {
   position: relative;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -84,6 +84,13 @@ export default {
   background-size: cover;
   color: #fff;
   z-index: 1;
+}
+.close-button {
+  margin: 5px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.493);
 }
 .top {
   display: flex;
@@ -126,6 +133,17 @@ export default {
   }
   .full-progressbar {
     background-color: rgba(131, 131, 131, 0.192);
+  }
+}
+@media screen and (max-width: 380px) {
+  .left {
+    width: 100%;
+  }
+  .right {
+    display: none;
+  }
+  .hidden1 {
+    display: none;
   }
 }
 </style>
