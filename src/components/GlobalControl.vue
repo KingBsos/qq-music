@@ -48,4 +48,14 @@ export default {
   color: #999;
   border-radius: 30px;
 }
+@media screen and (max-width: 500px) {
+  .right {
+    display: none;
+  }
+}
+@media screen and (max-width: 450px) {
+  .input {
+    width: 50%;
+  }
+}
 </style>

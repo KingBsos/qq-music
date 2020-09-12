@@ -9,7 +9,7 @@
         appear-active-class="fullpage-enter-active"
       >
         <keep-alive>
-          <router-view></router-view>
+          <router-view class="h-100"></router-view>
         </keep-alive>
       </transition>
       <PortalTarget name="MusicListSidebar" />
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { PLAY_TYPE } from "./constant-poll.js";
+import { PLAY_TYPE } from "./constants";
 import { mapState, mapGetters, mapMutations } from "vuex";
 
 export default {
@@ -81,8 +81,7 @@ export default {
 <style>
 @import "./assets/css/index.css";
 #app {
-  width: 100vw;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
   position: relative;
   z-index: 0;

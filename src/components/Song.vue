@@ -5,8 +5,8 @@
         <thead>
           <tr>
             <th>歌曲</th>
-            <th>歌手</th>
-            <th>专辑</th>
+            <th class="hidden2">歌手</th>
+            <th class="hidden1">专辑</th>
           </tr>
         </thead>
         <tbody>
@@ -18,7 +18,7 @@
             <td>
               <div class="d-f">
                 <span
-                  :class="['iconfont', 'like-button vA-m_', 'pX-_5R', item.like ? 'color-red icon-xihuan1' : 'icon-xihuan']"
+                  :class="['iconfont', 'like-button vA-m_', 'mr_5rem', item.like ? 'color-red icon-xihuan1' : 'icon-xihuan']"
                 ></span>
                 <div class="left-panel">
                   <div class="song-name vA-m_">{{ item.name }}</div>
@@ -39,8 +39,8 @@
                 </div>
               </div>
             </td>
-            <td>{{ item.singer }}</td>
-            <td>{{ item.album }}</td>
+            <td class="TO hidden2">{{ item.singer }}</td>
+            <td class="TO hidden1">{{ item.album }}</td>
           </tr>
         </tbody>
       </table>
@@ -83,7 +83,7 @@ export default {
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
-  color: 14px;
+  font-size: 14px;
   tr:not(:first-child):hover {
     background-color: rgb(247, 247, 247);
   }
@@ -134,5 +134,15 @@ export default {
   display: none;
   float: right;
   text-align: right;
+}
+@media screen and (max-width: 500px) {
+  .hidden1 {
+    display: none;
+  }
+}
+@media screen and (max-width: 430px) {
+  .hidden2 {
+    display: none;
+  }
 }
 </style>

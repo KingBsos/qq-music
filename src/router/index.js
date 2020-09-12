@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import FullScreenPlayPanel from './components/FullScreenPlayPanel.vue';
-import Index from './components/Index.vue';
-import ILike from './components/ILike.vue';
-import Song from './components/Song.vue';
+import FullScreenPlayPanel from '../components/FullScreenPlayPanel.vue';
+import Index from '../components/Index.vue';
+import ILike from '../components/ILike.vue';
+import Song from '../components/Song.vue';
 
 Vue.use(Router);
 

@@ -2,24 +2,27 @@
   <div>
     <div class="container">
       <div>
-        <img class="logo mY-1R" :src="pic"/>
+        <img class="logo mY-1R" :src="pic" />
       </div>
       <div>
         <h3 class="title">在线音乐</h3>
         <ul>
-          <li class="d-iB w-100 p-_25R">
+          <li>
             <router-link class="d-iB w-100 link" to="/index/musichall">
-              <span class="pR-_5R iconfont icon-yinyue"></span>音乐馆
+              <span class="mr1rem iconfont icon-yinyue"></span>
+              <span>音乐馆</span>
             </router-link>
           </li>
-          <li class="d-iB w-100 p-_25R">
+          <li>
             <router-link class="d-iB w-100 link" to="/index/video">
-              <span class="pR-_5R iconfont icon-shipin1"></span>视频
+              <span class="mr1rem iconfont icon-shipin1"></span>
+              <span>视频</span>
             </router-link>
           </li>
-          <li class="d-iB w-100 p-_25R">
+          <li>
             <router-link class="d-iB w-100 link" to="/index/radiostation">
-              <span class="pR-_5R iconfont icon-diantai"></span>电台
+              <span class="mr1rem iconfont icon-diantai"></span>
+              <span>电台</span>
             </router-link>
           </li>
         </ul>
@@ -27,24 +30,28 @@
       <div>
         <h3 class="title">我的音乐</h3>
         <ul>
-          <li v-if="logged" class="d-iB w-100 p-_25R">
+          <li v-if="logged">
             <router-link class="d-iB w-100 link" to="/index/ilike">
-              <span class="pR-_5R iconfont icon-xihuan1"></span>我喜欢
+              <span class="mr1rem iconfont icon-xihuan1"></span>
+              <span>我喜欢</span>
             </router-link>
           </li>
-          <li class="d-iB w-100 p-_25R">
+          <li>
             <router-link class="d-iB w-100 link" to="/index/localanddownload">
-              <span class="pR-_5R iconfont icon-icon-test"></span>本地和下载
+              <span class="mr1rem iconfont icon-icon-test"></span>
+              <span>本地和下载</span>
             </router-link>
           </li>
-          <li class="d-iB w-100 p-_25R">
+          <li>
             <router-link class="d-iB w-100 link" to="/index/playhistory">
-              <span class="pR-_5R iconfont icon-lishi1"></span>播放历史
+              <span class="mr1rem iconfont icon-lishi1"></span>
+              <span>播放历史</span>
             </router-link>
           </li>
-          <li class="d-iB w-100 p-_25R">
+          <li>
             <router-link class="d-iB w-100 link" to="/index/auditionlist">
-              <span class="pR-_5R iconfont icon-yinleliebiao-"></span>试听列表
+              <span class="mr1rem iconfont icon-yinleliebiao-"></span>
+              <span>试听列表</span>
             </router-link>
           </li>
         </ul>
@@ -62,25 +69,38 @@
 </template>
 
 <script>
-import pic from '../assets/pic/qqmusic.png';
-import { mapState } from 'vuex';
+import pic from "../assets/pic/qqmusic.png";
+import { mapState } from "vuex";
 
 export default {
   data() {
     return {
       pic
-    }
+    };
   },
   computed: {
-    ...mapState(['logged'])
+    ...mapState(["logged"])
   }
 };
 </script>
 
 <style scoped>
 .container {
-  padding: 10px 20px;
+  height: 100%;
+  padding: 10px;
   color: var(--color1);
+  background-color: rgb(245, 245, 245);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+@media screen and (max-width: 850px) {
+  .container {
+    width: 40px;
+    padding: 0;
+  }
+  .logo {
+    display: none;
+  }
 }
 .logo {
   width: 100px;
@@ -88,14 +108,14 @@ export default {
 .title {
   font-size: 12px;
   color: var(--color4);
-  padding: 10px 5px;
+  padding: 15px;
   font-weight: 300;
 }
 .link {
-  padding: 5px;
+  padding: 3px 30px 3px 15px;
   color: var(--color3);
   font-size: 16px;
-  border-radius: 7px;
+  border-radius: 5px;
 }
 .link:hover:not(.router-link-active) {
   background-color: var(--color5);
@@ -103,5 +123,9 @@ export default {
 .router-link-active {
   background-color: var(--color2);
   color: #fff;
+}
+li {
+  white-space: nowrap;
+  padding: 5px 0;
 }
 </style>
