@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import axios from 'axios';
 import { PLAY_TYPE } from '../constants';
 import pic from '../assets/pic/0a8b265911c1171246ee645fae735f7d.png';
+import entities from './entities';
 
 Vue.use(Vuex);
 
@@ -50,6 +51,7 @@ const store = new Vuex.Store({
         }
     },
     modules: {
+        entities,
         user: {
             namespaced: true,
             state: () => ({
