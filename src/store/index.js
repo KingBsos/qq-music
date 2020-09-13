@@ -50,6 +50,9 @@ const store = new Vuex.Store({
             state.currentSongIndex = index;
         }
     },
+    actions: {
+
+    },
     modules: {
         entities,
         user: {

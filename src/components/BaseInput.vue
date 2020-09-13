@@ -15,6 +15,9 @@ export default {
             let {input, change, ...other} = this.$listeners;
             return {input, change, other};
         }
+    },
+    mounted() {
+        console.log(this.$style)
     }
 }
 </script>

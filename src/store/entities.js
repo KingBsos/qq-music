@@ -1,13 +1,13 @@
 
-
+const initEntity = () => ({byId: {}, allIds: []});
 const entities = {
     state() {
         return {
-            songSheet: null,
-            song: null,
-            album: null,
-            video: null,
-            anchorStation: null
+            songSheet: initEntity(),
+            song: initEntity(),
+            album: initEntity(),
+            video: initEntity(),
+            anchorStation: initEntity()
         }
     },
     getters: {
