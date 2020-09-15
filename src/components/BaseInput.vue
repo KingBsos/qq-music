@@ -17,7 +17,7 @@ export default {
         }
     },
     mounted() {
-        console.log(this.$style)
+        //console.log(this.$style)
     }
 }
 </script>

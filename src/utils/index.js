@@ -1,3 +1,23 @@
+function stateHelper(arr, initData, { suffix = '' } = {}) {
+    arr = [].concat(arr);
+    let stateObj = {};
+    for (let i of arr) {
+        stateObj[i + suffix] = initData();
+    }
+    return stateObj;
+}
+function mutationsHelper(arr, funs, { suffix = '' } = {}) {
+    arr = [].concat(arr);
+    let mutationsObj = {};
+    let keys = Object.keys(funs);
+    for (let i of arr) {
+        for (let k of keys) {
+            let str = i[0].toUpperCase() + i.slice(1);
+            mutationsObj[k + str] = (...args) => funs[k](i + suffix, ...args);
+        }
+    }
+    return mutationsObj;
+}
 function realOffset(element) {
     function _realOffset(element, x, y) {
         let parent = element.offsetParent;
@@ -8,7 +28,7 @@ function realOffset(element) {
     }
     return _realOffset(element, 0, 0);
 }
-function gussian(imgUrl, x1=0, x2 = 1, y1 = x1, y2 = x2) {
+function gussian(imgUrl, x1 = 0, x2 = 1, y1 = x1, y2 = x2) {
     let canvas = document.createElement('canvas');
     let ctx = canvas.getContext('2d');
     let image = new Image();
@@ -116,4 +136,4 @@ function gussian(imgUrl, x1=0, x2 = 1, y1 = x1, y2 = x2) {
         };
     });
 }
-export { realOffset, gussian };
+export { realOffset, gussian, stateHelper, mutationsHelper };

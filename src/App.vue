@@ -74,6 +74,9 @@ export default {
           return "";
       }
     };
+  },
+  mounted() {
+    this.$store.dispatch('iLikeData/fetchSong').then(() => console.log('state', this.$store.state));
   }
 };
 </script>

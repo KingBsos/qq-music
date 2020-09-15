@@ -40,7 +40,7 @@
               </div>
             </td>
             <td class="TO hidden2">{{ item.singer }}</td>
-            <td class="TO hidden1">{{ item.album }}</td>
+            <td class="TO hidden1">{{ item.album.name }}</td>
           </tr>
         </tbody>
       </table>
