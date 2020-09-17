@@ -28,7 +28,7 @@ const iLikeData = {
   },
   actions: {
     fetchSong({ commit }) {
-      return axios('/music').then(result => result.data).then(data => {
+      return axios('/data/likesong').then(result => result.data).then(data => {
         let album = new schema.Entity('albums');
         let song = new schema.Entity('songs', { album });
         let { result, entities: { songs, albums } } = normalize(data, [song]);

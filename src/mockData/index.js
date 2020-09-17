@@ -20,7 +20,7 @@ const musicDetailTemplate = {
     album: '@CUSTOMALBUM',
     like: true
 };
-Mock.mock(/music/, [
+Mock.mock('/data/likesong', [
     {
         name: '花澤香菜 - 恋爱サーキュレーション -Instrumental-',
         url: music1,

@@ -79,8 +79,8 @@ const store = new Vuex.Store({
                         commit('loadBasicData', data);
                     });
                 },
-                getLikeSong({ commit }, url) {
-                    axios.get(url).then(({ data }) => {
+                getLikeSong({ commit }) {
+                    axios.get('/data/likesong').then(({ data }) => {
                         commit('loadLikeSong', data);
                     });
                 }

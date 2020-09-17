@@ -60,6 +60,7 @@ export default {
   methods: {
     ...mapActions("user", ["getLikeSong"]),
     ...mapMutations(["loadCurrentSongSheet", "loadCurrentSongIndex"]),
+    ...mapActions('iLikeData', ['fetchSong']),
     songSheetPlay(sheet, index) {
       this.loadCurrentSongSheet(sheet);
       this.loadCurrentSongIndex(index);
@@ -67,7 +68,8 @@ export default {
     }
   },
   created() {
-    this.getLikeSong("music");
+    this.fetchSong();
+    this.getLikeSong();
   }
 };
 </script>
