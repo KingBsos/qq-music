@@ -1,4 +1,4 @@
-import { stateHelper, mutationsHelper } from '../utils';
+import { stateHelper, mutationsHelper } from '../../utils';
 import axios from 'axios';
 import { normalize, schema } from 'normalizr';
 

@@ -1,10 +1,9 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import axios from 'axios';
 import { PLAY_TYPE } from '../constants';
 import pic from '../assets/pic/0a8b265911c1171246ee645fae735f7d.png';
 import entities from './entities';
-import iLikeData from './iLikeData';
+import user from './user';
 
 Vue.use(Vuex);
 
@@ -55,37 +54,7 @@ const store = new Vuex.Store({
 
     },
     modules: {
-        entities, iLikeData,
-        user: {
-            namespaced: true,
-            state: () => ({
-                name: 'KingBsos',
-                headPortrait: '',
-                likeSongSheet: null
-            }),
-            mutations: {
-                loadBasicData(state, payload, rootState) {
-                    rootState.logged = true;
-                    Object.assign(state, payload);
-                },
-                loadLikeSong(state, payload) {
-                    state.likeSongSheet = [...payload];
-                }
-            },
-            actions: {
-                login({ commit }, url) {
-                    axios.get(url).then(({ data }) => {
-                        commit('changeLogged', true, { root: true });
-                        commit('loadBasicData', data);
-                    });
-                },
-                getLikeSong({ commit }) {
-                    axios.get('/data/likesong').then(({ data }) => {
-                        commit('loadLikeSong', data);
-                    });
-                }
-            }
-        }
+        entities, user
     }
 });
 

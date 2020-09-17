@@ -54,13 +54,15 @@ import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 export default {
   inject: ["audio", "safePlay"],
   computed: {
+    ...mapState('entities', {allSongs: 'song'}),
     ...mapState("user", ["likeSongSheet"]),
+    ...mapState('user/iLikeData', {likeSongs: 'songs'}),
     ...mapGetters(["currentSong"])
   },
   methods: {
     ...mapActions("user", ["getLikeSong"]),
     ...mapMutations(["loadCurrentSongSheet", "loadCurrentSongIndex"]),
-    ...mapActions('iLikeData', ['fetchSong']),
+    ...mapActions('user/iLikeData', ['fetchSong']),
     songSheetPlay(sheet, index) {
       this.loadCurrentSongSheet(sheet);
       this.loadCurrentSongIndex(index);
@@ -70,6 +72,9 @@ export default {
   created() {
     this.fetchSong();
     this.getLikeSong();
+  },
+  updated() {
+    console.log();
   }
 };
 </script>
