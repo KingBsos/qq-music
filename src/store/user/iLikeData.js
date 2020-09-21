@@ -23,6 +23,19 @@ const iLikeData = {
       ...stateHelper(initArr, () => [], { suffix: 's' })
     }
   },
+  getters: {
+    likeSongs(state, getter, rootState) {
+      return state.songs.map(item => {
+        let allSongs = rootState.entities.song.byId;
+        let allAlbums = rootState.entities.album.byId;
+        let {album, ...rest} = allSongs[item];
+        album = allAlbums[album];
+        return {
+          ...rest, album
+        }
+      });
+    }
+  },
   mutations: {
     ...mutationsHelper(initArr, { add, remove }, { suffix: 's' })
   },

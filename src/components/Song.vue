@@ -12,7 +12,7 @@
         <tbody>
           <tr
             :class="[item.name == currentSong.name ? 'active-song' : '']"
-            v-for="(item, index) in likeSongSheet"
+            v-for="(item, index) in likeSongs"
             :key="index"
           >
             <td>
@@ -54,9 +54,8 @@ import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 export default {
   inject: ["audio", "safePlay"],
   computed: {
-    ...mapState('entities', {allSongs: 'song'}),
     ...mapState("user", ["likeSongSheet"]),
-    ...mapState('user/iLikeData', {likeSongs: 'songs'}),
+    ...mapGetters('user/iLikeData', ['likeSongs']),
     ...mapGetters(["currentSong"])
   },
   methods: {
@@ -74,7 +73,7 @@ export default {
     this.getLikeSong();
   },
   updated() {
-    console.log();
+    //console.log(this.likeSongs);
   }
 };
 </script>
