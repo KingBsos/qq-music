@@ -9,11 +9,9 @@
           <div class="top-control">
             <GlobalControl />
           </div>
-          <div class="w-100 h-100 o-auto">
-            <transition>
-              <router-view></router-view>
-            </transition>
-          </div>
+          <transition>
+            <router-view class="w-100 h-100 o-auto"></router-view>
+          </transition>
           <div class="footer">
             <MusicController class="h-100 pT-1R pX-1R" />
           </div>

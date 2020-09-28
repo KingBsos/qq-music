@@ -12,8 +12,8 @@
         <tbody>
           <tr
             :class="[item.name == currentSong.name ? 'active-song' : '']"
-            v-for="(item, index) in likeSongs"
-            :key="index"
+            v-for="item in likeSongs"
+            :key="item.id"
           >
             <td>
               <div class="d-f">

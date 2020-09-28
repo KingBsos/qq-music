@@ -88,3 +88,96 @@ Mock.mock('/data/likesong', [
         ...musicDetailTemplate
     }
 ]);
+const listTemplate = {
+    name: '@CTITLE(3,6)',
+    poster: '@DATAIMAGE(200x200)',
+    url: '@URL',
+    audience: '@NATURAL(0, 10000)'
+};
+const temp = [
+    {
+        ...listTemplate, anchor: '@NAME', date: '@DATE'
+    }
+];
+Mock.mock('/data/carefullySelected', {
+    data: {
+        'carouselData|10': [
+            {
+                tag: '@CUSTOMTAG',
+                poster: '@DATAIMAGE(200x100)',
+                url: '@URL'
+            }
+        ],
+        'officalSongList|6': [listTemplate],
+        'recommendedSongList|6': [
+            {
+                ...listTemplate, anchor: '@NAME'
+            }
+        ],
+        "recommendedVideo|6": [
+            {
+                ...listTemplate, anchor: '@NAME', poster: '@DATAIMAGE(200x120)'
+            }
+        ],
+        latestIssue: {
+            '最新|15': temp,
+            '内地|15': temp,
+            '港台|15': temp,
+            '欧美|15': temp,
+            '韩国|15': temp,
+            '日本|15': temp
+        }
+    }
+});
+
+Mock.mock('/data/ranking', {
+    data: {
+        rankingList: [],
+        regional: [],
+        featureList: [],
+        globalList: []
+    }
+});
+
+Mock.mock('/data/singer', {
+    data: {
+        singers: []
+    }
+});
+
+Mock.mock('/data/classifiedsonglist', {
+    data: {
+        carefullySelectedSongList: []
+    }
+});
+
+Mock.mock('/data/digitalAlbum', {
+    data: {
+        carousel: [],
+        newArrival: [],
+        hortestOfWeek: [],
+        musicianAlbum: [],
+        newVoicePowerBlooming2019: [],
+        mainlandAlbumRemonmendation2019: [],
+        koreanAlbumRecommendation2019: [],
+        moviesAndTVOSTRecommendation2019: []
+    }
+});
+
+Mock.mock('data/audioProgram', {
+    data: {
+        recommendedStations: [],
+        recommendedPrograms: [],
+        programRankings: [],
+        popularAuchor: []
+    }
+})
+
+Mock.mock('data/excusiveuseformobilephone', {
+    data: {
+        listenTogether: [],
+        feturesOfMobile: [],
+        wonderfulMusicnews: [],
+
+    }
+})
