@@ -1,6 +1,13 @@
-import { stateHelper, mutationsHelper } from '../../utils';
 import axios from 'axios';
-import { normalize, schema } from 'normalizr';
+import {
+  normalize,
+  schema,
+} from 'normalizr';
+
+import {
+  mutationsHelper,
+  stateHelper,
+} from '../../utils';
 
 function add(i, state, { cover, data }) {
   if (cover) {
@@ -28,7 +35,7 @@ const iLikeData = {
       return state.songs.map(item => {
         let allSongs = rootState.entities.song.byId;
         let allAlbums = rootState.entities.album.byId;
-        let {album, ...rest} = allSongs[item];
+        let { album, ...rest } = allSongs[item];
         album = allAlbums[album];
         return {
           ...rest, album
@@ -49,6 +56,10 @@ const iLikeData = {
         commit('entities/addSong', { data: { byId: songs, allIds: result }, normalized: true }, { root: true });
         commit('entities/addAlbum', { data: albums, normalized: true }, { root: true });
       });
+    },
+    deleteSong({ commit }, id) {
+      //axios
+      commit('removeSong', { data: id });
     }
   }
 }

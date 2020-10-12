@@ -19,6 +19,7 @@
               <div class="d-f">
                 <span
                   :class="['iconfont', 'like-button vA-m_', 'mr_5rem', item.like ? 'color-red icon-xihuan1' : 'icon-xihuan']"
+                  @click="deleteSong(item.id)"
                 ></span>
                 <div class="left-panel">
                   <div class="song-name vA-m_">{{ item.name }}</div>
@@ -59,9 +60,8 @@ export default {
     ...mapGetters(["currentSong"])
   },
   methods: {
-    ...mapActions("user", ["getLikeSong"]),
     ...mapMutations(["loadCurrentSongSheet", "loadCurrentSongIndex"]),
-    ...mapActions('user/iLikeData', ['fetchSong']),
+    ...mapActions('user/iLikeData', ['fetchSong', 'deleteSong']),
     songSheetPlay(sheet, index) {
       this.loadCurrentSongSheet(sheet);
       this.loadCurrentSongIndex(index);
@@ -70,10 +70,6 @@ export default {
   },
   created() {
     this.fetchSong();
-    this.getLikeSong();
-  },
-  updated() {
-    //console.log(this.likeSongs);
   }
 };
 </script>
