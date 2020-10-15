@@ -12,7 +12,7 @@
         <tbody>
           <tr
             :class="[item.name == currentSong.name ? 'active-song' : '']"
-            v-for="item in likeSongs"
+            v-for="(item, index) in likeSongs"
             :key="item.id"
           >
             <td>
@@ -25,7 +25,7 @@
                   <div class="song-name vA-m_">{{ item.name }}</div>
                 </div>
                 <div class="option-panel vA-m_">
-                  <button class="btn" @click="songSheetPlay(likeSongSheet, index)">
+                  <button class="btn" @click="songSheetPlay(likeSongs, index)">
                     <span class="iconfont icon-weibiaoti--"></span>
                   </button>
                   <button class="btn mX-_25R">
