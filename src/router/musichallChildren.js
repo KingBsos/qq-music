@@ -9,32 +9,56 @@ const children = [
     {
         name: 'ranking',
         path: 'ranking',
-        component: {}
+        component: {
+            render(h) {
+                return h('span', 'kdsfjds');
+            }
+        }
     },
     {
         name: 'singer',
         path: 'singer',
-        component: {}
+        component: {
+            render(h) {
+                return h('span', 'kdsfjds');
+            }
+        }
     },
     {
         name: 'classifiedsonglist',
         path: 'classifiedsonglist',
-        component: {}
+        component: {
+            render(h) {
+                return h('span', 'kdsfjds');
+            }
+        }
     },
     {
         name: 'digitalalbum',
         path: 'digitalalbum',
-        component: {}
+        component: {
+            render(h) {
+                return h('span', 'kdsfjds');
+            }
+        }
     },
     {
         name: 'audioprogram',
         path: 'audioprogram',
-        component: null
+        component: {
+            render(h) {
+                return h('span', 'kdsfjds');
+            }
+        }
     },
     {
         name: 'excusiveuseformobilephone',
         path: 'excusiveuseformobilephone',
-        component: {}
+        component: {
+            render(h) {
+                return h('span', 'kdsfjds');
+            }
+        }
     }
 ]
 

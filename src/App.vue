@@ -75,7 +75,8 @@ export default {
       }
     };
   },
-  mounted() {
+  updated() {
+    console.log('app updated');
   }
 };
 </script>

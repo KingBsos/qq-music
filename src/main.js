@@ -15,4 +15,7 @@ new Vue({
   router,
   store,
   render: h => h(App),
+  updated() {
+    console.log('main updated');
+  }
 }).$mount('#app')
