@@ -74,9 +74,6 @@ export default {
           return "";
       }
     };
-  },
-  updated() {
-    console.log('app updated');
   }
 };
 </script>

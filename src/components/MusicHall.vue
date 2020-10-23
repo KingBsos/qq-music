@@ -31,10 +31,7 @@ export default {
     return {
       menuData,
     };
-  },
-  updated() {
-    console.log("musichall updated");
-  },
+  }
 };
 </script>
 

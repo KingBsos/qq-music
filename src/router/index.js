@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import FullScreenPlayPanel from '../components/FullScreenPlayPanel.vue';
+//import FullScreenPlayPanel from '../components/FullScreenPlayPanel.vue';
 import Index from '../components/Index.vue';
-import MusicHall from '../components/MusicHall.vue';
+//import MusicHall from '../components/MusicHall.vue';
 import MusicHallChildren from './musichallChildren';
 import ILike from '../components/ILike.vue';
 import Song from '../components/Song.vue';
@@ -24,7 +24,7 @@ const routes = [
         children: [
             {
                 path: 'musichall',
-                component: MusicHall,
+                component: () => import('../components/MusicHall.vue'),
                 redirect: 'musichall/carefullyselected',
                 children: MusicHallChildren
             },
@@ -76,7 +76,7 @@ const routes = [
     },
     {
         path: '/fullscreenplaypanel',
-        component: FullScreenPlayPanel
+        component: () => import('../components/FullScreenPlayPanel.vue')
     }
 
 ];
