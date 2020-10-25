@@ -3,7 +3,7 @@
 ```
 git clone git@github.com:kingbsos/qq-music --recursive
 ```
-
+![index](./index.png)
 ## Project setup
 ```
 npm install
