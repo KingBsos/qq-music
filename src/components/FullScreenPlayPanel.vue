@@ -14,7 +14,7 @@
         <div class="right">
           <h2>{{ currentSong.name }}</h2>
           <p>singer: {{ currentSong.singer }}</p>
-          <p>album: {{ currentSong.album.name }}</p>
+          <p v-if="currentSong.album">album: {{ currentSong.album.name }}</p>
         </div>
       </div>
       <div class="footer-wrap">
